@@ -10,6 +10,17 @@ var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
 
+var hp: int = Globals.blue_health:
+	get:
+		return Globals.blue_health if name == "PlayerBlue" else Globals.red_health
+	set(value):
+		var points = clamp(value, 0, Globals.MAX_HP)
+		hp = points
+		if name == "PlayerBlue":
+			Globals.blue_health = points
+		else:
+			Globals.red_health = points
+
 var primary_weapon: Type.Weapon = Type.Weapon.None
 var secondary_weapon: Type.Weapon = Type.Weapon.Handgun
 var current_weapon: Type.Weapon = secondary_weapon
@@ -55,6 +66,7 @@ func _player_move():
 		velocity.x = movement_direction * SPEED
 		$Sprite2D.flip_h = movement_direction < 0
 		$Weapon.scale.x = direction.x
+		$Weapon.z_index = -1 if movement_direction < 0 else 1
 	else:
 		state = PlayerState.Idle
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
@@ -108,12 +120,12 @@ func set_weapon():
 
 func get_item(type: Type.Item, amount: int):
 	if type == Type.Item.Health:
-		print("healing")
+		hp += amount
 	elif type == Type.Item.Ammo:
 		print("get more ammo")
 
 func hit(damage: int):
-	print("hp minus ", damage)
+	hp -= damage
 
 func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 	if Input.is_action_just_pressed(get_box_input):

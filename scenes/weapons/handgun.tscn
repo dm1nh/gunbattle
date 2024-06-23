@@ -8,9 +8,9 @@
 script = ExtResource("2_5aea5")
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(3, 0)
+position = Vector2(4, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_i3spx")
 
 [node name="Marker2D" parent="." index="1"]
-position = Vector2(9, -1)
+position = Vector2(11, -1)
