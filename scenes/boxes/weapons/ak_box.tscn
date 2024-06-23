@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://pwgwntx8f6ms"]
+
+[ext_resource type="PackedScene" uid="uid://c7j6h1ci77pb5" path="res://scenes/boxes/weapons/weapon_box.tscn" id="1_ryhuh"]
+[ext_resource type="Script" path="res://scenes/boxes/weapons/ak_box.gd" id="2_52ncp"]
+[ext_resource type="Texture2D" uid="uid://cy5fmqqwrqew" path="res://graphics/weapons/ak.png" id="2_li2gk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auem8"]
+size = Vector2(18, 6)
+
+[node name="AkBox" instance=ExtResource("1_ryhuh")]
+script = ExtResource("2_52ncp")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_li2gk")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_auem8")
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "breathing"

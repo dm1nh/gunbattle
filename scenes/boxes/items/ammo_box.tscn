@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo71ys4cs71bu"]
+
+[ext_resource type="PackedScene" uid="uid://bnsnr4nij72ka" path="res://scenes/boxes/items/item_box.tscn" id="1_e6j8s"]
+[ext_resource type="Texture2D" uid="uid://df8m42ysxeq4x" path="res://graphics/items/ammo_box.png" id="2_d6fyh"]
+[ext_resource type="Script" path="res://scenes/boxes/items/ammo_box.gd" id="2_f1md3"]
+
+[node name="AmmoBox" instance=ExtResource("1_e6j8s")]
+script = ExtResource("2_f1md3")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_d6fyh")

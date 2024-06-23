@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dumm3bv4umi8d"]
+
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_e6ubb"]
+[ext_resource type="Script" path="res://scenes/weapons/handgun.gd" id="2_5aea5"]
+[ext_resource type="Texture2D" uid="uid://3sxeveu814jf" path="res://graphics/weapons/handgun.png" id="2_i3spx"]
+
+[node name="Handgun" instance=ExtResource("1_e6ubb")]
+script = ExtResource("2_5aea5")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(3, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_i3spx")
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(9, -1)

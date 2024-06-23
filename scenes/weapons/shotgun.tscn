@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://nkxh402tmi4h"]
+
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_waur5"]
+[ext_resource type="Script" path="res://scenes/weapons/shotgun.gd" id="2_8fhqb"]
+[ext_resource type="Texture2D" uid="uid://bss1q84vwoc40" path="res://graphics/weapons/shotgun.png" id="2_at2nc"]
+
+[node name="Shotgun" instance=ExtResource("1_waur5")]
+script = ExtResource("2_8fhqb")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_at2nc")
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(9, -1)

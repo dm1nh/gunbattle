@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://tit68f5m5uy6"]
+
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_0t0f8"]
+[ext_resource type="Script" path="res://scenes/weapons/rocket_launcher.gd" id="2_jbhnc"]
+[ext_resource type="Texture2D" uid="uid://b1uxff1dsfheh" path="res://graphics/weapons/launcher.png" id="2_n86ym"]
+
+[node name="RocketLauncher" instance=ExtResource("1_0t0f8")]
+script = ExtResource("2_jbhnc")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n86ym")
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(10, 0)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbin8e07ren3v"]
+
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_ypjgw"]
+[ext_resource type="Texture2D" uid="uid://cy5fmqqwrqew" path="res://graphics/weapons/ak.png" id="2_44bcv"]
+[ext_resource type="Script" path="res://scenes/weapons/ak.gd" id="2_uxaco"]
+
+[node name="AK" instance=ExtResource("1_ypjgw")]
+script = ExtResource("2_uxaco")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_44bcv")
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(10, -1)

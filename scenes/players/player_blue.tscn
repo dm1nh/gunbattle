@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3a0s1jathl8"]
+
+[ext_resource type="PackedScene" uid="uid://cxnclqsifuens" path="res://scenes/players/player.tscn" id="1_881ar"]
+[ext_resource type="Script" path="res://scenes/players/player_blue.gd" id="2_51thu"]
+[ext_resource type="Texture2D" uid="uid://nrjnykh65dm3" path="res://graphics/players/player_blue.png" id="2_m4pp1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4bhd"]
+size = Vector2(11, 16)
+
+[node name="PlayerBlue" instance=ExtResource("1_881ar")]
+script = ExtResource("2_51thu")
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_u4bhd")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_m4pp1")

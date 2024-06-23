@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv5o17nn7nquf"]
+
+[ext_resource type="PackedScene" uid="uid://c7j6h1ci77pb5" path="res://scenes/boxes/weapons/weapon_box.tscn" id="1_6w74p"]
+[ext_resource type="Texture2D" uid="uid://3sxeveu814jf" path="res://graphics/weapons/handgun.png" id="2_b72f2"]
+[ext_resource type="Script" path="res://scenes/boxes/weapons/handgun_box.gd" id="2_mb3iv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gjh8n"]
+size = Vector2(11, 8)
+
+[node name="HandgunBox" instance=ExtResource("1_6w74p")]
+script = ExtResource("2_mb3iv")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_b72f2")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_gjh8n")
