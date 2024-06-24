@@ -21,7 +21,7 @@ script = ExtResource("1_j76av")
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2(-78, 229)
 collision_layer = 8
-collision_mask = 15
+collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
 position = Vector2(240, 5.5)
@@ -43,7 +43,6 @@ position = Vector2(74, 113)
 [node name="AkBox" parent="." instance=ExtResource("3_i1x3c")]
 position = Vector2(201, 226)
 collision_layer = 1
-collision_mask = 1
 
 [node name="HealthBox" parent="." instance=ExtResource("4_dapfe")]
 position = Vector2(252, 225)
@@ -57,8 +56,10 @@ collision_mask = 1
 
 [node name="ShotgunBox" parent="." instance=ExtResource("7_jcs4k")]
 position = Vector2(172, 226)
+collision_mask = 9
 
 [node name="Interfaces" parent="." instance=ExtResource("8_l62rt")]
 
 [node name="RocketLauncherBox" parent="." instance=ExtResource("9_8oh6j")]
 position = Vector2(146, 224)
+collision_mask = 9
