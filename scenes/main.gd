@@ -4,15 +4,24 @@ var bullet_scene: PackedScene = preload("res://scenes/projecttiles/bullet.tscn")
 var arrow_scene: PackedScene = preload("res://scenes/projecttiles/arrow.tscn")
 var rocket_scene: PackedScene = preload("res://scenes/projecttiles/rocket.tscn")
 
+var grenade_scene: PackedScene = preload("res://scenes/projecttiles/grenade.tscn")
+
 func _ready():
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("fire", _on_player_fire)
+		player.connect("throw_grenade", _on_player_throw_grenade)
 
 func _on_player_fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int):
 	if spread > 1:
 		_create_projecttile_scene(pos, dir.rotated(PI/24), damage_per_bullet, projecttile)
 		_create_projecttile_scene(pos, dir.rotated(-PI/24), damage_per_bullet, projecttile)
 	_create_projecttile_scene(pos, dir, damage_per_bullet, projecttile)
+
+func _on_player_throw_grenade(pos: Vector2, dir: Vector2):
+	var grenade = grenade_scene.instantiate() as RigidBody2D
+	grenade.position = pos
+	grenade.linear_velocity = dir.rotated(-PI/4) * grenade.speed
+	$Projecttiles.add_child(grenade)
 	
 func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile):
 	var scene: PackedScene

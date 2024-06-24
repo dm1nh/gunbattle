@@ -27,9 +27,12 @@ var secondary_weapon: Type.Weapon = Type.Weapon.Handgun
 var current_weapon_is_primary: bool = false 
 
 signal fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int)
+signal throw_grenade(pos: Vector2, dir: Vector2)
 
 var can_fire_next_bullet: bool = true
+var can_throw_next_grenade: bool = true
 var reloading: bool = false
+@onready var initialGrenadeMarkerPosition: Vector2 = $GrenadeMarker2D.position
 
 var ak = preload("res://scenes/weapons/ak.tscn")
 var crossbow = preload("res://scenes/weapons/crossbow.tscn")
@@ -69,6 +72,7 @@ func _player_move():
 		$Sprite2D.flip_h = movement_direction < 0
 		$Weapon.scale.x = direction.x
 		$Weapon.z_index = -1 if movement_direction < 0 else 1
+		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
 	else:
 		state = PlayerState.Idle
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
@@ -112,7 +116,9 @@ func _player_fire():
 
 func _player_throw_grenade():
 	if Input.is_action_just_pressed(throw_grenade_input):
-		print("Throw grenade")
+		$GrenadeCooldownTimer.start()
+		can_throw_next_grenade = false
+		throw_grenade.emit($GrenadeMarker2D.global_position, direction)
 
 func _player_animate():
 	if state == PlayerState.Idle:
@@ -123,6 +129,10 @@ func _player_animate():
 		$AnimationPlayer.play("jumping")
 
 func set_weapon():
+	# stop the bullet cooldown as changing weapons
+	$BulletCooldownTimer.stop()
+	can_fire_next_bullet = true
+
 	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
 	if $Weapon.get_child_count() > 0:
 		$Weapon.get_child(0).queue_free()
@@ -149,6 +159,9 @@ func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 
 func _on_bullet_cooldown_timer_timeout():
 	can_fire_next_bullet = true
+
+func _on_grenade_cooldown_timer_timeout():
+	can_throw_next_grenade = true
 
 func _on_reload_cooldown_timer_timeout():
 	reloading = false

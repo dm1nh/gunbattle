@@ -39,6 +39,10 @@ func _on_bullet_cooldown_timer_timeout():
 
 func _on_reload_cooldown_timer_timeout():
 	pass # Replace with function body.
+
+
+func _on_grenade_cooldown_timer_timeout():
+	pass # Replace with function body.
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5sh7o"]
@@ -132,7 +136,13 @@ libraries = {
 
 [node name="BulletCooldownTimer" type="Timer" parent="."]
 
+[node name="GrenadeCooldownTimer" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="ReloadCooldownTimer" type="Timer" parent="."]
+
+[node name="GrenadeMarker2D" type="Marker2D" parent="."]
+position = Vector2(12, -8)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -12.0
@@ -142,4 +152,5 @@ offset_bottom = 9.0
 label_settings = SubResource("LabelSettings_lwmn3")
 
 [connection signal="timeout" from="BulletCooldownTimer" to="." method="_on_bullet_cooldown_timer_timeout"]
+[connection signal="timeout" from="GrenadeCooldownTimer" to="." method="_on_grenade_cooldown_timer_timeout"]
 [connection signal="timeout" from="ReloadCooldownTimer" to="." method="_on_reload_cooldown_timer_timeout"]
