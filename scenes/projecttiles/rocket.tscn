@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8l6d0pi5bw44"]
+[gd_scene load_steps=9 format=3 uid="uid://c8l6d0pi5bw44"]
 
 [ext_resource type="PackedScene" uid="uid://deqhfmnxmc7j0" path="res://scenes/projecttiles/projecttile.tscn" id="1_51d7r"]
 [ext_resource type="Texture2D" uid="uid://chffo4f700b8g" path="res://graphics/projecttiles/rocket.png" id="2_arslx"]
@@ -9,19 +9,26 @@
 radius = 2.0
 height = 6.0
 
+[sub_resource type="Gradient" id="Gradient_xlo31"]
+colors = PackedColorArray(0.497474, 0.497474, 0.497474, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ssq3c"]
+gradient = SubResource("Gradient_xlo31")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2rvs7"]
 particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 2.0
 gravity = Vector3(-50, 0, 0)
-scale_min = 0.4
-scale_max = 0.8
+scale_min = 0.2
+scale_max = 0.6
+color_ramp = SubResource("GradientTexture1D_ssq3c")
 
 [node name="Rocket" instance=ExtResource("1_51d7r")]
 script = ExtResource("2_vs5gd")
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(4, 0)
+position = Vector2(6, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_arslx")
 
@@ -33,6 +40,6 @@ shape = SubResource("CapsuleShape2D_dslxy")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="2"]
 modulate = Color(1, 1, 0.498039, 1)
 position = Vector2(-1, 0)
-amount = 16
+amount = 12
 process_material = SubResource("ParticleProcessMaterial_2rvs7")
 texture = ExtResource("3_tu0ue")
