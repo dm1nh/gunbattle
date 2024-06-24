@@ -33,6 +33,10 @@ func _physics_process(delta):
 
 func _on_bullet_cooldown_timer_timeout():
 	pass # Replace with function body.
+
+
+func _on_reload_cooldown_timer_timeout():
+	pass # Replace with function body.
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5sh7o"]
@@ -124,3 +128,4 @@ libraries = {
 [node name="ReloadCooldownTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="BulletCooldownTimer" to="." method="_on_bullet_cooldown_timer_timeout"]
+[connection signal="timeout" from="ReloadCooldownTimer" to="." method="_on_reload_cooldown_timer_timeout"]

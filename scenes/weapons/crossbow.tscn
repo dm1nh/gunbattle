@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsuqpnfikihri"]
+[gd_scene load_steps=5 format=3 uid="uid://dsuqpnfikihri"]
 
 [ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_eb120"]
 [ext_resource type="Script" path="res://scenes/weapons/crossbow.gd" id="2_07wcf"]
 [ext_resource type="Texture2D" uid="uid://cflgo2glyocmu" path="res://graphics/weapons/crossbow.png" id="2_ja6kx"]
+[ext_resource type="AudioStream" uid="uid://bh4eyns0nlmkv" path="res://audios/weapons/crossbow.wav" id="4_hpay8"]
 
 [node name="Crossbow" instance=ExtResource("1_eb120")]
 script = ExtResource("2_07wcf")
@@ -13,3 +14,6 @@ texture = ExtResource("2_ja6kx")
 
 [node name="Marker2D" parent="." index="1"]
 position = Vector2(11, 0)
+
+[node name="ShotSound" parent="." index="2"]
+stream = ExtResource("4_hpay8")

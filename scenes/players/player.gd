@@ -29,6 +29,7 @@ var current_weapon_is_primary: bool = false
 signal fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int)
 
 var can_fire_next_bullet: bool = true
+var reloading: bool = false
 
 var ak = preload("res://scenes/weapons/ak.tscn")
 var crossbow = preload("res://scenes/weapons/crossbow.tscn")
@@ -91,13 +92,20 @@ func _player_swap_weapon():
 
 func _player_fire():
 	var weapon_node = $Weapon.get_child(0) as Weapon
+
 	if Input.is_action_just_pressed(fire_input) and bullet_count >= weapon_node.capacity:
+		reloading = true
+		weapon_node.get_node("ReloadSound").play()
+		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
+		$ReloadCooldownTimer.start()
 		bullet_count = 0	
-	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and bullet_count < weapon_node.capacity:
+
+	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and bullet_count < weapon_node.capacity and not reloading:
 		$BulletCooldownTimer.wait_time = 60.0 / weapon_node.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
 		var pos = weapon_node.get_node("Marker2D").global_position
+		weapon_node.get_node("ShotSound").play()
 		fire.emit(pos, direction, weapon_node.damage_per_bullet, weapon_node.projecttile, weapon_node.spread)
 		bullet_count += 1
 
@@ -140,6 +148,9 @@ func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 
 func _on_bullet_cooldown_timer_timeout():
 	can_fire_next_bullet = true
+
+func _on_reload_cooldown_timer_timeout():
+	reloading = false
 
 # utils
 func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:
