@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxnclqsifuens"]
+[gd_scene load_steps=9 format=3 uid="uid://cxnclqsifuens"]
+
+[ext_resource type="FontFile" uid="uid://bgednkvgvqr2d" path="res://fonts/Roboto-Regular.ttf" id="1_s5vnc"]
 
 [sub_resource type="GDScript" id="GDScript_6fcvo"]
 script/source = "extends CharacterBody2D
@@ -100,6 +102,11 @@ _data = {
 "running": SubResource("Animation_47v8y")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_lwmn3"]
+line_spacing = 0.0
+font = ExtResource("1_s5vnc")
+font_size = 4
+
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 collision_mask = 14
 script = SubResource("GDScript_6fcvo")
@@ -126,6 +133,13 @@ libraries = {
 [node name="BulletCooldownTimer" type="Timer" parent="."]
 
 [node name="ReloadCooldownTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -12.0
+offset_top = -14.0
+offset_right = 11.0
+offset_bottom = 9.0
+label_settings = SubResource("LabelSettings_lwmn3")
 
 [connection signal="timeout" from="BulletCooldownTimer" to="." method="_on_bullet_cooldown_timer_timeout"]
 [connection signal="timeout" from="ReloadCooldownTimer" to="." method="_on_reload_cooldown_timer_timeout"]

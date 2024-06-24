@@ -95,6 +95,7 @@ func _player_fire():
 
 	if Input.is_action_just_pressed(fire_input) and bullet_count >= weapon_node.capacity:
 		reloading = true
+		$Label.text = "Reloading"
 		weapon_node.get_node("ReloadSound").play()
 		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
 		$ReloadCooldownTimer.start()
@@ -151,6 +152,7 @@ func _on_bullet_cooldown_timer_timeout():
 
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
+	$Label.text = ""
 
 # utils
 func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:
