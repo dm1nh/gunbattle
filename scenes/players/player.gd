@@ -9,6 +9,7 @@ enum PlayerState { Idle, Running, Jumping }
 var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
+var bullet_count: int = 0
 
 var hp: int = Globals.blue_health:
 	get:
@@ -23,7 +24,7 @@ var hp: int = Globals.blue_health:
 
 var primary_weapon: Type.Weapon = Type.Weapon.None
 var secondary_weapon: Type.Weapon = Type.Weapon.Handgun
-var current_weapon: Type.Weapon = secondary_weapon
+var current_weapon_is_primary: bool = false 
 
 signal fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int)
 
@@ -85,20 +86,20 @@ func _player_jump(delta):
 
 func _player_swap_weapon():
 	if Input.is_action_just_pressed(swap_weapon_input):
-		if current_weapon == secondary_weapon:
-			current_weapon = primary_weapon
-		else:
-			current_weapon = secondary_weapon
+		current_weapon_is_primary = not current_weapon_is_primary
 		set_weapon()
 
 func _player_fire():
-	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet:
-		var weapon_node = $Weapon.get_child(0) as Weapon
+	var weapon_node = $Weapon.get_child(0) as Weapon
+	if Input.is_action_just_pressed(fire_input) and bullet_count >= weapon_node.capacity:
+		bullet_count = 0	
+	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and bullet_count < weapon_node.capacity:
 		$BulletCooldownTimer.wait_time = 60.0 / weapon_node.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
 		var pos = weapon_node.get_node("Marker2D").global_position
 		fire.emit(pos, direction, weapon_node.damage_per_bullet, weapon_node.projecttile, weapon_node.spread)
+		bullet_count += 1
 
 func _player_throw_grenade():
 	if Input.is_action_just_pressed(throw_grenade_input):
@@ -113,6 +114,7 @@ func _player_animate():
 		$AnimationPlayer.play("jumping")
 
 func set_weapon():
+	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
 	if $Weapon.get_child_count() > 0:
 		$Weapon.get_child(0).queue_free()
 	var wp = get_weapon_scene_by_type(current_weapon).instantiate()
@@ -133,6 +135,7 @@ func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 			primary_weapon = weapon	
 		else:
 			secondary_weapon = weapon
+		set_weapon()
 		box.queue_free()
 
 func _on_bullet_cooldown_timer_timeout():

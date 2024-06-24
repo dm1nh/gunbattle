@@ -103,13 +103,16 @@ script = SubResource("GDScript_6fcvo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_5sh7o")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 hframes = 3
 vframes = 3
 frame = 6
+metadata/_edit_lock_ = true
 
 [node name="Weapon" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -117,5 +120,7 @@ libraries = {
 }
 
 [node name="BulletCooldownTimer" type="Timer" parent="."]
+
+[node name="ReloadCooldownTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="BulletCooldownTimer" to="." method="_on_bullet_cooldown_timer_timeout"]
