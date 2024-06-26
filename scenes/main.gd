@@ -22,6 +22,7 @@ func _on_player_throw_grenade(pos: Vector2, dir: Vector2):
 	grenade.position = pos
 	grenade.linear_velocity = dir.rotated(-PI/4) * grenade.speed
 	$Projecttiles.add_child(grenade)
+	grenade.get_node("ThrowGrenadeSound").play()
 	
 func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile):
 	var scene: PackedScene

@@ -18,6 +18,7 @@ func _process(_delta):
 func _on_explode_timer_timeout():
 	$Sprite2D.queue_free()
 	$Explosion.visible = true
+	$ExplodeSound.play()
 	$AnimationPlayer.play("explode")
 	exploded = true
 	await $AnimationPlayer.animation_finished

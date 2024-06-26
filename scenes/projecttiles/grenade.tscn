@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ut6yv1nwbipl"]
+[gd_scene load_steps=11 format=3 uid="uid://ut6yv1nwbipl"]
 
 [ext_resource type="Texture2D" uid="uid://dbdikmrkyjkk8" path="res://graphics/projecttiles/grenade.png" id="1_h7kul"]
 [ext_resource type="Script" path="res://scenes/projecttiles/grenade.gd" id="1_se73j"]
 [ext_resource type="Texture2D" uid="uid://bb02o8cw478jo" path="res://graphics/projecttiles/effects/explosion.png" id="3_31dgj"]
+[ext_resource type="AudioStream" uid="uid://cr147yv1grdur" path="res://audios/weapons/throw_grenade.wav" id="4_e3mkk"]
+[ext_resource type="AudioStream" uid="uid://crojon7skhyra" path="res://audios/weapons/explosion.wav" id="5_dpdy5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xyl1d"]
 bounce = 0.2
@@ -74,5 +76,11 @@ libraries = {
 [node name="ExplodeTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="ThrowGrenadeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_e3mkk")
+
+[node name="ExplodeSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dpdy5")
 
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]

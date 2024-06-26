@@ -4,5 +4,6 @@ func _ready():
 	firerate = 600
 	damage_per_bullet = 15
 	capacity = 30
+	available_bullets = 90
 	reload_time = 4
 	projecttile = Type.Projecttile.Bullet
