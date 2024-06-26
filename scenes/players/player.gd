@@ -131,6 +131,8 @@ func _player_animate():
 func set_weapon():
 	# stop the bullet cooldown as changing weapons
 	$BulletCooldownTimer.stop()
+	bullet_count = 0
+	$ReloadCooldownTimer.stop()
 	can_fire_next_bullet = true
 
 	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
