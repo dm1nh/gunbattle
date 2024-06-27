@@ -9,7 +9,7 @@ enum PlayerState { Idle, Running, Jumping }
 var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
-var bullet_count: int = 0
+var remaining_bullets: int
 var vulnerable_by_grenade: bool = true
 
 var hp: int = Globals.blue_health:
@@ -98,25 +98,24 @@ func _player_swap_weapon():
 func _player_fire():
 	var weapon_node = $Weapon.get_child(0) as Weapon
 
-	if Input.is_action_just_pressed(fire_input) and bullet_count >= weapon_node.capacity:
+	if Input.is_action_just_pressed(fire_input) and remaining_bullets <= 0:
 		reloading = true
 		$Label.text = "Reloading"
 		weapon_node.get_node("ReloadSound").play()
 		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
 		$ReloadCooldownTimer.start()
-		bullet_count = 0	
 
-	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and bullet_count < weapon_node.capacity and not reloading:
+	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and remaining_bullets > 0 and not reloading:
 		$BulletCooldownTimer.wait_time = 60.0 / weapon_node.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
 		var pos = weapon_node.get_node("Marker2D").global_position
 		weapon_node.get_node("ShotSound").play()
 		fire.emit(pos, direction, weapon_node.damage_per_bullet, weapon_node.projecttile, weapon_node.spread)
-		bullet_count += 1
+		remaining_bullets -= 1
 
 func _player_throw_grenade():
-	if Input.is_action_just_pressed(throw_grenade_input):
+	if Input.is_action_just_pressed(throw_grenade_input) and can_throw_next_grenade:
 		$GrenadeCooldownTimer.start()
 		can_throw_next_grenade = false
 		throw_grenade.emit($GrenadeMarker2D.global_position, direction)
@@ -130,10 +129,6 @@ func _player_animate():
 		$AnimationPlayer.play("jumping")
 
 func set_weapon():
-	# stop the bullet cooldown as changing weapons
-	$BulletCooldownTimer.stop()
-	bullet_count = 0
-	$ReloadCooldownTimer.stop()
 	can_fire_next_bullet = true
 
 	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
@@ -141,6 +136,7 @@ func set_weapon():
 		$Weapon.get_child(0).queue_free()
 	var wp = get_weapon_scene_by_type(current_weapon).instantiate()
 	$Weapon.add_child(wp)
+	remaining_bullets = wp.capacity
 
 func get_item(type: Type.Item, amount: int):
 	if type == Type.Item.Health:
@@ -149,11 +145,11 @@ func get_item(type: Type.Item, amount: int):
 		print("get more ammo")
 
 func hit(damage: int, is_grenade: bool = false):
+	$AnimationPlayer.play("hit")
 	if is_grenade and vulnerable_by_grenade:
 		hp -= damage
 		vulnerable_by_grenade = false
 		$VulnerableByGrenadeTimer.start()
-
 	if not is_grenade:
 		hp -= damage
 
@@ -178,6 +174,7 @@ func _on_grenade_cooldown_timer_timeout():
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
 	$Label.text = ""
+	remaining_bullets = $Weapon.get_child(0).capacity
 
 # utils
 func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:

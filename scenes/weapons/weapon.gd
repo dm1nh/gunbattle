@@ -4,7 +4,6 @@ class_name Weapon
 var firerate: int
 var damage_per_bullet: int
 var capacity: int
-var available_bullets: int
 var reload_time: int
 var projecttile: Type.Projecttile
 var spread: int = 1
