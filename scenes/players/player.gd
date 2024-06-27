@@ -10,6 +10,7 @@ var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
 var bullet_count: int = 0
+var vulnerable_by_grenade: bool = true
 
 var hp: int = Globals.blue_health:
 	get:
@@ -147,8 +148,14 @@ func get_item(type: Type.Item, amount: int):
 	elif type == Type.Item.Ammo:
 		print("get more ammo")
 
-func hit(damage: int):
-	hp -= damage
+func hit(damage: int, is_grenade: bool = false):
+	if is_grenade and vulnerable_by_grenade:
+		hp -= damage
+		vulnerable_by_grenade = false
+		$VulnerableByGrenadeTimer.start()
+
+	if not is_grenade:
+		hp -= damage
 
 func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 	if Input.is_action_just_pressed(get_box_input):
@@ -158,6 +165,9 @@ func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 			secondary_weapon = weapon
 		set_weapon()
 		box.queue_free()
+
+func _on_vulnerable_by_grenade_timer_timeout():
+	vulnerable_by_grenade = true
 
 func _on_bullet_cooldown_timer_timeout():
 	can_fire_next_bullet = true
