@@ -5,7 +5,7 @@ const SPEED: int = 150
 const JUMP_VELOCITY: int = -300
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") # gravity value from project settings
 
-enum PlayerState { Idle, Running, Jumping }
+enum PlayerState { Idle, Running, Jumping, Dead }
 var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
@@ -63,6 +63,7 @@ func _process(delta):
 	_player_fire()
 	_player_throw_grenade()
 	_player_animate()
+	_player_die()
 
 func _player_move():
 	var movement_direction: float = Input.get_axis(left_input, right_input)
@@ -75,7 +76,7 @@ func _player_move():
 		$Weapon.z_index = -1 if movement_direction < 0 else 1
 		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
 	else:
-		state = PlayerState.Idle
+		state = PlayerState.Idle if state != PlayerState.Dead else PlayerState.Dead
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
 
 func _player_jump(delta):
@@ -122,11 +123,17 @@ func _player_throw_grenade():
 
 func _player_animate():
 	if state == PlayerState.Idle:
-		$AnimationPlayer.play("idle")
+		$StateAnimationPlayer.play("idle")
 	elif state == PlayerState.Running:
-		$AnimationPlayer.play("running")
+		$StateAnimationPlayer.play("running")
 	elif state == PlayerState.Jumping:
-		$AnimationPlayer.play("jumping")
+		$StateAnimationPlayer.play("jumping")
+	elif state == PlayerState.Dead:
+		$StateAnimationPlayer.play("dead")
+
+func _player_die():
+	if hp == 0:
+		state = PlayerState.Dead
 
 func set_weapon():
 	can_fire_next_bullet = true
@@ -145,7 +152,7 @@ func get_item(type: Type.Item, amount: int):
 		print("get more ammo")
 
 func hit(damage: int, is_grenade: bool = false):
-	$AnimationPlayer.play("hit")
+	$OtherAnimationPlayer.play("hit")
 	if is_grenade and vulnerable_by_grenade:
 		hp -= damage
 		vulnerable_by_grenade = false

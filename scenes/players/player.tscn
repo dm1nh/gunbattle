@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxnclqsifuens"]
+[gd_scene load_steps=12 format=3 uid="uid://cxnclqsifuens"]
 
 [ext_resource type="FontFile" uid="uid://bgednkvgvqr2d" path="res://fonts/Roboto-Regular.ttf" id="1_s5vnc"]
 
@@ -107,9 +107,34 @@ tracks/0/keys = {
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_x5qqh"]
-resource_name = "hit"
+[sub_resource type="Animation" id="Animation_e5so2"]
+resource_name = "dead"
 length = 0.3
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [9, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ytfd7"]
+_data = {
+"dead": SubResource("Animation_e5so2"),
+"idle": SubResource("Animation_xl3es"),
+"jumping": SubResource("Animation_ekcpq"),
+"running": SubResource("Animation_47v8y")
+}
+
+[sub_resource type="Animation" id="Animation_3o3tc"]
+resource_name = "hit"
+length = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -117,18 +142,15 @@ tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
+"times": PackedFloat32Array(0, 0.05, 0.1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.299547, 0.299547, 0.299547, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(0.270222, 0.270222, 0.270222, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ytfd7"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5oakd"]
 _data = {
-"hit": SubResource("Animation_x5qqh"),
-"idle": SubResource("Animation_xl3es"),
-"jumping": SubResource("Animation_ekcpq"),
-"running": SubResource("Animation_47v8y")
+"hit": SubResource("Animation_3o3tc")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_lwmn3"]
@@ -147,16 +169,21 @@ metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 hframes = 3
-vframes = 3
-frame = 6
+vframes = 4
+frame = 10
 metadata/_edit_lock_ = true
 
 [node name="Weapon" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="StateAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ytfd7")
+}
+
+[node name="OtherAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5oakd")
 }
 
 [node name="BulletCooldownTimer" type="Timer" parent="."]
