@@ -152,12 +152,13 @@ func get_item(type: Type.Item, amount: int):
 		print("get more ammo")
 
 func hit(damage: int, is_grenade: bool = false):
-	$OtherAnimationPlayer.play("hit")
 	if is_grenade and vulnerable_by_grenade:
+		$OtherAnimationPlayer.play("hit")
 		hp -= damage
 		vulnerable_by_grenade = false
 		$VulnerableByGrenadeTimer.start()
 	if not is_grenade:
+		$OtherAnimationPlayer.play("hit")
 		hp -= damage
 
 func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
