@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 const SPEED: int = 150
-const JUMP_VELOCITY: int = -300
+const JUMP_VELOCITY: int = -250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") # gravity value from project settings
 
 enum PlayerState { Idle, Running, Jumping, Dead }

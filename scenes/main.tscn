@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://qx3a7qa8cj4s"]
+[gd_scene load_steps=12 format=3 uid="uid://qx3a7qa8cj4s"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_j76av"]
 [ext_resource type="PackedScene" uid="uid://d3a0s1jathl8" path="res://scenes/players/player_blue.tscn" id="1_wt3nq"]
+[ext_resource type="Texture2D" uid="uid://8dqqibrwa1o8" path="res://graphics/backgrounds/forest.png" id="2_noe53"]
 [ext_resource type="PackedScene" uid="uid://pwgwntx8f6ms" path="res://scenes/boxes/weapons/ak_box.tscn" id="3_i1x3c"]
 [ext_resource type="PackedScene" uid="uid://po8lvpjp50p" path="res://scenes/boxes/items/health_box.tscn" id="4_dapfe"]
 [ext_resource type="PackedScene" uid="uid://bo71ys4cs71bu" path="res://scenes/boxes/items/ammo_box.tscn" id="5_utvd4"]
@@ -11,27 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://bh0l3wmsigd5y" path="res://scenes/boxes/weapons/rocket_launcher_box.tscn" id="9_8oh6j"]
 [ext_resource type="PackedScene" uid="uid://r36ms0rvojan" path="res://scenes/boxes/weapons/crossbow_box.tscn" id="10_d34yq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pugtf"]
-size = Vector2(480, 11)
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_h07gc"]
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_j76av")
 
-[node name="Platform" type="StaticBody2D" parent="."]
-position = Vector2(-78, 229)
-collision_layer = 8
-collision_mask = 11
+[node name="Map" type="Node2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-position = Vector2(240, 5.5)
-shape = SubResource("RectangleShape2D_pugtf")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platform"]
-position = Vector2(240, 5.5)
-scale = Vector2(480, 11)
-texture = SubResource("CanvasTexture_h07gc")
+[node name="Background" type="Sprite2D" parent="Map"]
+position = Vector2(160, 120)
+texture = ExtResource("2_noe53")
+region_enabled = true
+region_rect = Rect2(0, 0, 320, 240)
 
 [node name="PlayerRed" parent="." instance=ExtResource("6_kmjfw")]
 position = Vector2(286, 219)
@@ -41,29 +31,32 @@ position = Vector2(74, 113)
 
 [node name="Projecttiles" type="Node2D" parent="."]
 
-[node name="AkBox" parent="." instance=ExtResource("3_i1x3c")]
+[node name="Interfaces" parent="." instance=ExtResource("8_l62rt")]
+
+[node name="Items" type="Node2D" parent="."]
+visible = false
+
+[node name="AkBox" parent="Items" instance=ExtResource("3_i1x3c")]
 position = Vector2(201, 226)
 collision_layer = 1
 
-[node name="HealthBox" parent="." instance=ExtResource("4_dapfe")]
+[node name="HealthBox" parent="Items" instance=ExtResource("4_dapfe")]
 position = Vector2(252, 225)
 collision_layer = 1
 collision_mask = 1
 
-[node name="AmmoBox" parent="." instance=ExtResource("5_utvd4")]
+[node name="AmmoBox" parent="Items" instance=ExtResource("5_utvd4")]
 position = Vector2(105, 224)
 collision_layer = 1
 collision_mask = 1
 
-[node name="ShotgunBox" parent="." instance=ExtResource("7_jcs4k")]
+[node name="ShotgunBox" parent="Items" instance=ExtResource("7_jcs4k")]
 position = Vector2(172, 226)
 collision_mask = 9
 
-[node name="Interfaces" parent="." instance=ExtResource("8_l62rt")]
-
-[node name="RocketLauncherBox" parent="." instance=ExtResource("9_8oh6j")]
+[node name="RocketLauncherBox" parent="Items" instance=ExtResource("9_8oh6j")]
 position = Vector2(146, 224)
 collision_mask = 9
 
-[node name="CrossbowBox" parent="." instance=ExtResource("10_d34yq")]
+[node name="CrossbowBox" parent="Items" instance=ExtResource("10_d34yq")]
 position = Vector2(56, 224)
