@@ -75,9 +75,16 @@ func _player_move():
 		$Weapon.scale.x = direction.x
 		$Weapon.z_index = -1 if movement_direction < 0 else 1
 		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
+
+		var viewport_size = get_viewport().get_visible_rect().size
+		if global_position.x > viewport_size.x:
+			global_position.x = global_position.x - viewport_size.x
+		if global_position.x <= 1:
+			global_position.x = viewport_size.x - global_position.x
 	else:
 		state = PlayerState.Idle if state != PlayerState.Dead else PlayerState.Dead
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
+
 
 func _player_jump(delta):
 	# falling
