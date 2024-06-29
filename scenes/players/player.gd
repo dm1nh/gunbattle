@@ -107,7 +107,7 @@ func _player_fire():
 
 	if Input.is_action_just_pressed(fire_input) and remaining_bullets <= 0 and not reloading:
 		reloading = true
-		$Label.text = "Reloading"
+		$ReloadingIcon.visible = true	
 		weapon_node.get_node("ReloadSound").play()
 		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
 		$ReloadCooldownTimer.start()
@@ -190,7 +190,7 @@ func _on_grenade_cooldown_timer_timeout():
 
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
-	$Label.text = ""
+	$ReloadingIcon.visible = false
 	remaining_bullets = $Weapon.get_child(0).capacity
 
 # utils
