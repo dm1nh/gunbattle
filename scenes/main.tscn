@@ -1,16 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://qx3a7qa8cj4s"]
+[gd_scene load_steps=7 format=3 uid="uid://qx3a7qa8cj4s"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_j76av"]
 [ext_resource type="PackedScene" uid="uid://d3a0s1jathl8" path="res://scenes/players/player_blue.tscn" id="1_wt3nq"]
 [ext_resource type="Texture2D" uid="uid://8dqqibrwa1o8" path="res://graphics/backgrounds/forest.png" id="2_noe53"]
-[ext_resource type="PackedScene" uid="uid://pwgwntx8f6ms" path="res://scenes/boxes/weapons/ak_box.tscn" id="3_i1x3c"]
-[ext_resource type="PackedScene" uid="uid://po8lvpjp50p" path="res://scenes/boxes/items/health_box.tscn" id="4_dapfe"]
-[ext_resource type="PackedScene" uid="uid://bo71ys4cs71bu" path="res://scenes/boxes/items/ammo_box.tscn" id="5_utvd4"]
+[ext_resource type="Script" path="res://scenes/weapon_boxes.gd" id="6_f30gt"]
 [ext_resource type="PackedScene" uid="uid://b0avhbrnehd15" path="res://scenes/players/player_red.tscn" id="6_kmjfw"]
-[ext_resource type="PackedScene" uid="uid://bg61vum38lcl0" path="res://scenes/boxes/weapons/shotgun_box.tscn" id="7_jcs4k"]
 [ext_resource type="PackedScene" uid="uid://cj1a83nppu01t" path="res://scenes/interfaces.tscn" id="8_l62rt"]
-[ext_resource type="PackedScene" uid="uid://bh0l3wmsigd5y" path="res://scenes/boxes/weapons/rocket_launcher_box.tscn" id="9_8oh6j"]
-[ext_resource type="PackedScene" uid="uid://r36ms0rvojan" path="res://scenes/boxes/weapons/crossbow_box.tscn" id="10_d34yq"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_j76av")
@@ -23,6 +18,18 @@ texture = ExtResource("2_noe53")
 region_enabled = true
 region_rect = Rect2(0, 0, 320, 240)
 
+[node name="WeaponBoxes" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_f30gt")
+
+[node name="SpawnCooldownTimer" type="Timer" parent="WeaponBoxes"]
+wait_time = 15.0
+autostart = true
+
+[node name="SpawnPositions" type="Node2D" parent="WeaponBoxes"]
+
+[node name="Boxes" type="Node2D" parent="WeaponBoxes"]
+
 [node name="PlayerRed" parent="." instance=ExtResource("6_kmjfw")]
 position = Vector2(286, 219)
 
@@ -33,30 +40,4 @@ position = Vector2(74, 113)
 
 [node name="Interfaces" parent="." instance=ExtResource("8_l62rt")]
 
-[node name="Items" type="Node2D" parent="."]
-visible = false
-
-[node name="AkBox" parent="Items" instance=ExtResource("3_i1x3c")]
-position = Vector2(201, 226)
-collision_layer = 1
-
-[node name="HealthBox" parent="Items" instance=ExtResource("4_dapfe")]
-position = Vector2(252, 225)
-collision_layer = 1
-collision_mask = 1
-
-[node name="AmmoBox" parent="Items" instance=ExtResource("5_utvd4")]
-position = Vector2(105, 224)
-collision_layer = 1
-collision_mask = 1
-
-[node name="ShotgunBox" parent="Items" instance=ExtResource("7_jcs4k")]
-position = Vector2(172, 226)
-collision_mask = 9
-
-[node name="RocketLauncherBox" parent="Items" instance=ExtResource("9_8oh6j")]
-position = Vector2(146, 224)
-collision_mask = 9
-
-[node name="CrossbowBox" parent="Items" instance=ExtResource("10_d34yq")]
-position = Vector2(56, 224)
+[connection signal="timeout" from="WeaponBoxes/SpawnCooldownTimer" to="WeaponBoxes" method="_on_spawn_cooldown_timer_timeout"]

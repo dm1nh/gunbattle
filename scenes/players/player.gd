@@ -52,8 +52,7 @@ var swap_weapon_input: StringName
 
 func _ready():
 	set_weapon()
-	for weapon_box in get_tree().get_nodes_in_group("weapon_boxes"):
-		weapon_box.connect("wait_get_box", _on_wait_get_weapon_box)
+	get_tree().get_nodes_in_group("weapon_boxes_container")[0].connect("spawn_weapon_box", _on_spawn_weapon_box)
 
 func _process(delta):
 	_player_move()
@@ -167,6 +166,9 @@ func hit(damage: int, is_grenade: bool = false):
 	if not is_grenade:
 		$OtherAnimationPlayer.play("hit")
 		hp -= damage
+
+func _on_spawn_weapon_box(box: Area2D):
+	box.connect("wait_get_box", _on_wait_get_weapon_box)
 
 func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
 	if Input.is_action_just_pressed(get_box_input):
