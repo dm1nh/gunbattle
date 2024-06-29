@@ -99,7 +99,7 @@ func _player_swap_weapon():
 func _player_fire():
 	var weapon_node = $Weapon.get_child(0) as Weapon
 
-	if Input.is_action_just_pressed(fire_input) and remaining_bullets <= 0:
+	if Input.is_action_just_pressed(fire_input) and remaining_bullets <= 0 and not reloading:
 		reloading = true
 		$Label.text = "Reloading"
 		weapon_node.get_node("ReloadSound").play()
