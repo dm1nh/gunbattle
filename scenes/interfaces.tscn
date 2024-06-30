@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj1a83nppu01t"]
+[gd_scene load_steps=11 format=3 uid="uid://cj1a83nppu01t"]
 
 [ext_resource type="Texture2D" uid="uid://ui0codmdh52m" path="res://graphics/interfaces/bar_under.png" id="1_igojt"]
 [ext_resource type="Script" path="res://scenes/interfaces.gd" id="1_sw04l"]
 [ext_resource type="Texture2D" uid="uid://b6bmcs5bu3uxr" path="res://graphics/interfaces/bar_over.png" id="2_c5q88"]
 [ext_resource type="Texture2D" uid="uid://bmb7jshutnc4" path="res://graphics/interfaces/blue_bar.png" id="3_qqrj7"]
 [ext_resource type="Texture2D" uid="uid://27t8aryan4vr" path="res://graphics/interfaces/red_bar.png" id="4_ofsow"]
+[ext_resource type="FontFile" uid="uid://bh6ls3ib0ioar" path="res://fonts/Minecraft.ttf" id="7_j0nf7"]
+[ext_resource type="Texture2D" uid="uid://dco7lxufvbi5b" path="res://graphics/interfaces/magazine.png" id="8_g0ucs"]
+[ext_resource type="Texture2D" uid="uid://c2hkghon0x546" path="res://graphics/interfaces/ammo.png" id="8_is675"]
+[ext_resource type="Texture2D" uid="uid://dbdikmrkyjkk8" path="res://graphics/projecttiles/grenade.png" id="9_o0qxr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wnfx7"]
+font = ExtResource("7_j0nf7")
+font_size = 14
 
 [node name="Interfaces" type="CanvasLayer"]
 script = ExtResource("1_sw04l")
@@ -37,3 +45,139 @@ fill_mode = 1
 texture_under = ExtResource("1_igojt")
 texture_over = ExtResource("2_c5q88")
 texture_progress = ExtResource("4_ofsow")
+
+[node name="PlayerBlueStats" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.04
+anchor_right = 0.02
+anchor_bottom = 0.04
+offset_left = -2.4
+offset_top = 1.4
+offset_right = 73.6
+offset_bottom = 18.4
+scale = Vector2(0.4, 0.4)
+theme_override_constants/separation = 6
+
+[node name="Ammo" type="HBoxContainer" parent="PlayerBlueStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBlueStats/Ammo"]
+layout_mode = 2
+texture = ExtResource("8_is675")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerBlueStats/Ammo"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerBlueStats/Ammo/MarginContainer"]
+layout_mode = 2
+text = "21"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="Magazine" type="HBoxContainer" parent="PlayerBlueStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBlueStats/Magazine"]
+layout_mode = 2
+texture = ExtResource("8_g0ucs")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerBlueStats/Magazine"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerBlueStats/Magazine/MarginContainer"]
+layout_mode = 2
+text = "07"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="Grenade" type="HBoxContainer" parent="PlayerBlueStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PlayerBlueStats/Grenade"]
+layout_mode = 2
+texture = ExtResource("9_o0qxr")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerBlueStats/Grenade"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerBlueStats/Grenade/MarginContainer"]
+layout_mode = 2
+text = "03
+"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="PlayerRedStats" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.98
+anchor_top = 0.05
+anchor_right = 0.98
+anchor_bottom = 0.05
+offset_left = -45.6
+offset_right = 72.4
+offset_bottom = 17.0
+grow_horizontal = 0
+scale = Vector2(0.4, 0.4)
+theme_override_constants/separation = 6
+
+[node name="Grenade" type="HBoxContainer" parent="PlayerRedStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerRedStats/Grenade"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerRedStats/Grenade/MarginContainer"]
+layout_mode = 2
+text = "03
+"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Grenade"]
+layout_mode = 2
+texture = ExtResource("9_o0qxr")
+stretch_mode = 5
+
+[node name="Magazine" type="HBoxContainer" parent="PlayerRedStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerRedStats/Magazine"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerRedStats/Magazine/MarginContainer"]
+layout_mode = 2
+text = "07"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Magazine"]
+layout_mode = 2
+texture = ExtResource("8_g0ucs")
+stretch_mode = 5
+
+[node name="Ammo" type="HBoxContainer" parent="PlayerRedStats"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PlayerRedStats/Ammo"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="PlayerRedStats/Ammo/MarginContainer"]
+layout_mode = 2
+text = "21"
+label_settings = SubResource("LabelSettings_wnfx7")
+
+[node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Ammo"]
+layout_mode = 2
+texture = ExtResource("8_is675")
+stretch_mode = 5

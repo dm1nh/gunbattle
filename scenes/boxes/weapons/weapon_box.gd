@@ -3,7 +3,7 @@ class_name WeaponBox
 
 var weapon: Type.Weapon
 var primary: bool = true
-var available_bullets: int
+var extra_ammo: int
 var body_inside: bool = false
 var body_node: Node2D
 signal wait_get_box(box: Area2D, weapon: Type.Weapon, primary: bool)

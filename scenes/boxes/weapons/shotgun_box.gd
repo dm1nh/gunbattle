@@ -2,4 +2,4 @@ extends WeaponBox
 
 func _ready():
 	weapon = Type.Weapon.Shotgun
-	available_bullets = 15
+	extra_ammo = 15

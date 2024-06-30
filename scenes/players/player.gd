@@ -5,27 +5,42 @@ const SPEED: int = 150
 const JUMP_VELOCITY: int = -250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") # gravity value from project settings
 
+@onready var player_name = name.replace("Player", "").to_lower()	
 enum PlayerState { Idle, Running, Jumping, Dead }
 var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
 var direction: Vector2 = Vector2.RIGHT
-var remaining_bullets: int
-var vulnerable_by_grenade: bool = true
 
-var hp: int = Globals.blue_health:
+var hp: int = Globals.MAX_HP:
 	get:
-		return Globals.blue_health if name == "PlayerBlue" else Globals.red_health
+		return _get_global_value("hp") 
 	set(value):
-		var points = clamp(value, 0, Globals.MAX_HP)
-		hp = points
-		if name == "PlayerBlue":
-			Globals.blue_health = points
-		else:
-			Globals.red_health = points
+		_set_global_value("hp", value)
+
+var magazine: int = 0:
+	get:
+		return _get_global_value("magazine")
+	set(value):
+		_set_global_value("magazine", value)
+
+# FIX: how to update this correctly?
+var ammo: int = 0:
+	get:
+		return _get_global_value("ammo")
+	set(value):
+		_set_global_value("ammo", value)
+
+var grenades_count: int = Globals.MAX_GRENADES_COUNT:
+	get:
+		return _get_global_value("grenades_count")
+	set(value):
+		_set_global_value("grenades_count", value)
 
 var primary_weapon: Type.Weapon = Type.Weapon.None
 var secondary_weapon: Type.Weapon = Type.Weapon.Handgun
 var current_weapon_is_primary: bool = false 
+
+var vulnerable_by_grenade: bool = true
 
 signal fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int)
 signal throw_grenade(pos: Vector2, dir: Vector2)
@@ -84,7 +99,6 @@ func _player_move():
 		state = PlayerState.Idle if state != PlayerState.Dead else PlayerState.Dead
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
 
-
 func _player_jump(delta):
 	# falling
 	if not is_on_floor():
@@ -105,27 +119,29 @@ func _player_swap_weapon():
 func _player_fire():
 	var weapon_node = $Weapon.get_child(0) as Weapon
 
-	if Input.is_action_just_pressed(fire_input) and remaining_bullets <= 0 and not reloading:
+	if Input.is_action_just_pressed(fire_input) and magazine <= 0 and ammo > 0 and not reloading:
 		reloading = true
+		ammo -= weapon_node.capacity
 		$ReloadingIcon.visible = true	
 		weapon_node.get_node("ReloadSound").play()
 		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
 		$ReloadCooldownTimer.start()
 
-	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and remaining_bullets > 0 and not reloading:
+	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and magazine > 0 and not reloading:
 		$BulletCooldownTimer.wait_time = 60.0 / weapon_node.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
 		var pos = weapon_node.get_node("Marker2D").global_position
 		weapon_node.get_node("ShotSound").play()
 		fire.emit(pos, direction, weapon_node.damage_per_bullet, weapon_node.projecttile, weapon_node.spread)
-		remaining_bullets -= 1
+		magazine -= 1
 
 func _player_throw_grenade():
-	if Input.is_action_just_pressed(throw_grenade_input) and can_throw_next_grenade:
+	if Input.is_action_just_pressed(throw_grenade_input) and can_throw_next_grenade and grenades_count > 0:
 		$GrenadeCooldownTimer.start()
 		can_throw_next_grenade = false
 		throw_grenade.emit($GrenadeMarker2D.global_position, direction)
+		grenades_count -= 1
 
 func _player_animate():
 	if state == PlayerState.Idle:
@@ -147,9 +163,9 @@ func set_weapon():
 	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
 	if $Weapon.get_child_count() > 0:
 		$Weapon.get_child(0).queue_free()
-	var wp = get_weapon_scene_by_type(current_weapon).instantiate()
+	var wp = get_weapon_scene_by_type(current_weapon).instantiate() as Node2D
 	$Weapon.add_child(wp)
-	remaining_bullets = wp.capacity
+	magazine = wp.capacity
 
 func get_item(type: Type.Item, amount: int):
 	if type == Type.Item.Health:
@@ -191,7 +207,7 @@ func _on_grenade_cooldown_timer_timeout():
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
 	$ReloadingIcon.visible = false
-	remaining_bullets = $Weapon.get_child(0).capacity
+	magazine = $Weapon.get_child(0).capacity
 
 # utils
 func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:
@@ -206,3 +222,9 @@ func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:
 	if weapon == Type.Weapon.Shotgun:
 		return shotgun
 	return handgun
+
+func _get_global_value(n: String):
+	return Globals[player_name + "_" + n]
+
+func _set_global_value(n: String, value):
+	Globals[player_name + "_" + n] = value
