@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbin8e07ren3v"]
+
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon_item.tscn" id="1_rt741"]
+[ext_resource type="Script" path="res://scenes/weapons/ak_item.gd" id="2_atgk5"]
+[ext_resource type="Texture2D" uid="uid://cy5fmqqwrqew" path="res://graphics/weapons/ak.png" id="3_5v03b"]
+[ext_resource type="AudioStream" uid="uid://cdfsqecv87jh0" path="res://audios/weapons/ak.wav" id="4_snply"]
+
+[node name="AkItem" instance=ExtResource("1_rt741")]
+script = ExtResource("2_atgk5")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(2, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_5v03b")
+
+[node name="Marker2D" parent="." index="1"]
+position = Vector2(12, -1)
+
+[node name="ShotSound" parent="." index="2"]
+stream = ExtResource("4_snply")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_j76av"]
 [ext_resource type="PackedScene" uid="uid://d3a0s1jathl8" path="res://scenes/players/player_blue.tscn" id="1_wt3nq"]
 [ext_resource type="Texture2D" uid="uid://8dqqibrwa1o8" path="res://graphics/backgrounds/forest.png" id="2_noe53"]
-[ext_resource type="Script" path="res://scenes/weapon_boxes.gd" id="6_f30gt"]
+[ext_resource type="Script" path="res://scenes/weapon_spawner.gd" id="6_f30gt"]
 [ext_resource type="PackedScene" uid="uid://b0avhbrnehd15" path="res://scenes/players/player_red.tscn" id="6_kmjfw"]
 [ext_resource type="PackedScene" uid="uid://cj1a83nppu01t" path="res://scenes/interfaces.tscn" id="8_l62rt"]
 
@@ -18,17 +18,16 @@ texture = ExtResource("2_noe53")
 region_enabled = true
 region_rect = Rect2(0, 0, 320, 240)
 
-[node name="WeaponBoxes" type="Node2D" parent="."]
-visible = false
+[node name="WeaponSpawner" type="Node2D" parent="." groups=["weapon_spawner"]]
 script = ExtResource("6_f30gt")
 
-[node name="SpawnCooldownTimer" type="Timer" parent="WeaponBoxes"]
+[node name="SpawnCooldownTimer" type="Timer" parent="WeaponSpawner"]
 wait_time = 15.0
 autostart = true
 
-[node name="SpawnPositions" type="Node2D" parent="WeaponBoxes"]
+[node name="SpawnPositions" type="Node2D" parent="WeaponSpawner"]
 
-[node name="Boxes" type="Node2D" parent="WeaponBoxes"]
+[node name="Boxes" type="Node2D" parent="WeaponSpawner"]
 
 [node name="PlayerRed" parent="." instance=ExtResource("6_kmjfw")]
 position = Vector2(286, 219)
@@ -40,4 +39,4 @@ position = Vector2(74, 113)
 
 [node name="Interfaces" parent="." instance=ExtResource("8_l62rt")]
 
-[connection signal="timeout" from="WeaponBoxes/SpawnCooldownTimer" to="WeaponBoxes" method="_on_spawn_cooldown_timer_timeout"]
+[connection signal="timeout" from="WeaponSpawner/SpawnCooldownTimer" to="WeaponSpawner" method="_on_spawn_cooldown_timer_timeout"]

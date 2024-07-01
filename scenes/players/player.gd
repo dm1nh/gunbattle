@@ -23,7 +23,6 @@ var magazine: int = 0:
 	set(value):
 		_set_global_value("magazine", value)
 
-# FIX: how to update this correctly?
 var ammo: int = 0:
 	get:
 		return _get_global_value("ammo")
@@ -36,13 +35,14 @@ var grenades_count: int = Globals.MAX_GRENADES_COUNT:
 	set(value):
 		_set_global_value("grenades_count", value)
 
-var primary_weapon: Type.Weapon = Type.Weapon.None
-var secondary_weapon: Type.Weapon = Type.Weapon.Handgun
-var current_weapon_is_primary: bool = false 
+var primary_weapon: Weapon 
+var secondary_weapon: Weapon = Handgun 
+var is_primary: bool = false
+var current_weapon: Weapon
 
 var vulnerable_by_grenade: bool = true
 
-signal fire(pos: Vector2, dir: Vector2, damage_per_bullet: int, projecttile: Type.Projecttile, spread: int)
+signal fire(pos: Vector2, dir: Vector2, weapon: Weapon)
 signal throw_grenade(pos: Vector2, dir: Vector2)
 
 var can_fire_next_bullet: bool = true
@@ -50,11 +50,11 @@ var can_throw_next_grenade: bool = true
 var reloading: bool = false
 @onready var initialGrenadeMarkerPosition: Vector2 = $GrenadeMarker2D.position
 
-var ak = preload("res://scenes/weapons/ak.tscn")
-var crossbow = preload("res://scenes/weapons/crossbow.tscn")
-var handgun = preload("res://scenes/weapons/handgun.tscn")
-var rocket_launcher = preload("res://scenes/weapons/rocket_launcher.tscn")
-var shotgun = preload("res://scenes/weapons/shotgun.tscn")
+var ak_scene: PackedScene = preload("res://scenes/weapons/ak_item.tscn")
+var crossbow_scene: PackedScene = preload("res://scenes/weapons/crossbow_item.tscn")
+var handgun_scene: PackedScene = preload("res://scenes/weapons/handgun_item.tscn")
+var rocket_launcher_scene: PackedScene = preload("res://scenes/weapons/rocket_launcher_item.tscn")
+var shotgun_scene: PackedScene = preload("res://scenes/weapons/shotgun_item.tscn")
 
 # Inputs
 var left_input: StringName
@@ -67,7 +67,7 @@ var swap_weapon_input: StringName
 
 func _ready():
 	set_weapon()
-	get_tree().get_nodes_in_group("weapon_boxes_container")[0].connect("spawn_weapon_box", _on_spawn_weapon_box)
+	get_tree().get_nodes_in_group("weapon_spawner")[0].connect("spawn_weapon_box", _on_spawn_weapon_box)
 
 func _process(delta):
 	_player_move()
@@ -86,8 +86,8 @@ func _player_move():
 		direction = Vector2.RIGHT if movement_direction > 0 else Vector2.LEFT
 		velocity.x = movement_direction * SPEED
 		$Sprite2D.flip_h = movement_direction < 0
-		$Weapon.scale.x = direction.x
-		$Weapon.z_index = -1 if movement_direction < 0 else 1
+		$WeaponItem.scale.x = direction.x
+		$WeaponItem.z_index = -1 if movement_direction < 0 else 1
 		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
 
 		var viewport_size = get_viewport().get_visible_rect().size
@@ -113,27 +113,27 @@ func _player_jump(delta):
 
 func _player_swap_weapon():
 	if Input.is_action_just_pressed(swap_weapon_input):
-		current_weapon_is_primary = not current_weapon_is_primary
+		is_primary = not is_primary
 		set_weapon()
 
 func _player_fire():
-	var weapon_node = $Weapon.get_child(0) as Weapon
+	var weapon_item = $WeaponItem.get_child(0) as WeaponItem
 
 	if Input.is_action_just_pressed(fire_input) and magazine <= 0 and ammo > 0 and not reloading:
 		reloading = true
-		ammo -= weapon_node.capacity
+		ammo -= weapon_item.weapon.capacity
 		$ReloadingIcon.visible = true	
-		weapon_node.get_node("ReloadSound").play()
-		$ReloadCooldownTimer.wait_time = weapon_node.reload_time
+		weapon_item.get_node("ReloadSound").play()
+		$ReloadCooldownTimer.wait_time = weapon_item.weapon.reload_time
 		$ReloadCooldownTimer.start()
 
 	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and magazine > 0 and not reloading:
-		$BulletCooldownTimer.wait_time = 60.0 / weapon_node.firerate
+		$BulletCooldownTimer.wait_time = 60.0 / weapon_item.weapon.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
-		var pos = weapon_node.get_node("Marker2D").global_position
-		weapon_node.get_node("ShotSound").play()
-		fire.emit(pos, direction, weapon_node.damage_per_bullet, weapon_node.projecttile, weapon_node.spread)
+		var pos = weapon_item.get_node("Marker2D").global_position
+		weapon_item.get_node("ShotSound").play()
+		fire.emit(pos, direction, current_weapon)
 		magazine -= 1
 
 func _player_throw_grenade():
@@ -160,17 +160,16 @@ func _player_die():
 func set_weapon():
 	can_fire_next_bullet = true
 
-	var current_weapon = primary_weapon if current_weapon_is_primary else secondary_weapon
-	if $Weapon.get_child_count() > 0:
-		$Weapon.get_child(0).queue_free()
-	var wp = get_weapon_scene_by_type(current_weapon).instantiate() as Node2D
-	$Weapon.add_child(wp)
-	magazine = wp.capacity
+	current_weapon = primary_weapon if is_primary else secondary_weapon
+	if $WeaponItem.get_child_count() > 0:
+		$WeaponItem.get_child(0).queue_free()
+	var wp = get_weapon_scene_by_type(current_weapon.type).instantiate() as Node2D
+	$WeaponItem.add_child(wp)
 
-func get_item(type: Type.Item, amount: int):
-	if type == Type.Item.Health:
+func get_item(type: Type.ItemType, amount: int):
+	if type == Type.ItemType.Health:
 		hp += amount
-	elif type == Type.Item.Ammo:
+	elif type == Type.ItemType.Ammo:
 		print("get more ammo")
 
 func hit(damage: int, is_grenade: bool = false):
@@ -184,11 +183,11 @@ func hit(damage: int, is_grenade: bool = false):
 		hp -= damage
 
 func _on_spawn_weapon_box(box: Area2D):
-	box.connect("wait_get_box", _on_wait_get_weapon_box)
+	box.connect("wait_get_weapon_box", _on_wait_get_weapon_box)
 
-func _on_wait_get_weapon_box(box: Area2D, weapon: Type.Weapon, primary: bool):
+func _on_wait_get_weapon_box(box: Area2D, weapon: Weapon):
 	if Input.is_action_just_pressed(get_box_input):
-		if primary:
+		if weapon.primary:
 			primary_weapon = weapon	
 		else:
 			secondary_weapon = weapon
@@ -207,21 +206,21 @@ func _on_grenade_cooldown_timer_timeout():
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
 	$ReloadingIcon.visible = false
-	magazine = $Weapon.get_child(0).capacity
+	magazine = $WeaponItem.get_child(0).capacity
 
 # utils
-func get_weapon_scene_by_type(weapon: Type.Weapon) -> PackedScene:
-	if weapon == Type.Weapon.Ak:
-		return ak
-	if weapon == Type.Weapon.Crossbow:
-		return crossbow
-	if weapon == Type.Weapon.Handgun:
-		return handgun
-	if weapon == Type.Weapon.RocketLauncher:
-		return rocket_launcher
-	if weapon == Type.Weapon.Shotgun:
-		return shotgun
-	return handgun
+func get_weapon_scene_by_type(type: Type.WeaponType) -> PackedScene:
+	if type == Type.WeaponType.Ak:
+		return ak_scene
+	if type == Type.WeaponType.Crossbow:
+		return crossbow_scene
+	if type == Type.WeaponType.Handgun:
+		return handgun_scene
+	if type == Type.WeaponType.RocketLauncher:
+		return rocket_launcher_scene
+	if type == Type.WeaponType.Shotgun:
+		return shotgun_scene
+	return handgun_scene
 
 func _get_global_value(n: String):
 	return Globals[player_name + "_" + n]

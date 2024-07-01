@@ -1,4 +1,4 @@
-extends WeaponBox
+extends WeaponItem
 
 func _init():
 	weapon = Crossbow

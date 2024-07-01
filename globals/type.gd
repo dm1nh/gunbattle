@@ -1,6 +1,6 @@
 extends Node
 
-enum Weapon {
+enum WeaponType {
 	None,
 	Ak,
 	Crossbow,
@@ -9,13 +9,13 @@ enum Weapon {
 	Shotgun,
 }
 
-enum Projecttile {
+enum ProjecttileType {
 	Bullet,
 	Arrow,
 	Rocket,
 }
 
-enum Item {
+enum ItemType {
 	Health,
 	Ammo,
 }

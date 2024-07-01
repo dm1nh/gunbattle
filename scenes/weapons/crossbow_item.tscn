@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dsuqpnfikihri"]
 
-[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon.tscn" id="1_eb120"]
-[ext_resource type="Script" path="res://scenes/weapons/crossbow.gd" id="2_07wcf"]
+[ext_resource type="PackedScene" uid="uid://cr2h7donlkwv1" path="res://scenes/weapons/weapon_item.tscn" id="1_eb120"]
+[ext_resource type="Script" path="res://scenes/weapons/crossbow_item.gd" id="2_07wcf"]
 [ext_resource type="Texture2D" uid="uid://cflgo2glyocmu" path="res://graphics/weapons/crossbow.png" id="2_ja6kx"]
 [ext_resource type="AudioStream" uid="uid://bh4eyns0nlmkv" path="res://audios/weapons/crossbow.wav" id="4_hpay8"]
 
