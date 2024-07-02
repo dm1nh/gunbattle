@@ -1,4 +1,4 @@
 extends WeaponBox
 
 func _init():
-	weapon = Shotgun
+	weapon = Weapons.Shotgun

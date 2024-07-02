@@ -4,10 +4,10 @@ signal blue_hp_change
 signal red_hp_change
 signal blue_grenades_count_change
 signal red_grenades_count_change
-signal blue_ammo_change
-signal red_ammo_change
-signal blue_magazine_change
-signal red_magazine_change
+signal blue_extra_ammo_change
+signal red_extra_ammo_change
+signal blue_remaining_projecttiles_in_mag_change
+signal red_remaining_projecttiles_in_mag_change
 
 const MAX_HP: int = 100
 
@@ -41,30 +41,30 @@ var red_grenades_count: int = MAX_GRENADES_COUNT:
 		red_grenades_count = clamp(value, 0, MAX_GRENADES_COUNT)
 		red_grenades_count_change.emit()
 
-var blue_magazine: int = 21:
+var blue_remaining_projecttiles_in_mag: int:
 	get:
-		return blue_magazine
+		return blue_remaining_projecttiles_in_mag
 	set(value):
-		blue_magazine = value
-		blue_magazine_change.emit()
+		blue_remaining_projecttiles_in_mag = value
+		blue_remaining_projecttiles_in_mag_change.emit()
 
-var red_magazine: int = 21:
+var red_remaining_projecttiles_in_mag: int:
 	get:
-		return red_magazine
+		return red_remaining_projecttiles_in_mag
 	set(value):
-		red_magazine = value
-		red_magazine_change.emit()
+		red_remaining_projecttiles_in_mag = value
+		red_remaining_projecttiles_in_mag_change.emit()
 
-var blue_ammo: int = 21:
+var blue_extra_ammo: int:
 	get:
-		return blue_ammo
+		return blue_extra_ammo
 	set(value):
-		blue_ammo = value
-		blue_ammo_change.emit()
+		blue_extra_ammo = value
+		blue_extra_ammo_change.emit()
 
-var red_ammo: int = 21:
+var red_extra_ammo: int:
 	get:
-		return red_ammo
+		return red_extra_ammo
 	set(value):
-		red_ammo = value
-		red_ammo_change.emit()
+		red_extra_ammo = value
+		red_extra_ammo_change.emit()

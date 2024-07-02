@@ -20,11 +20,7 @@ config/icon="res://icon.svg"
 Type="*res://globals/type.gd"
 Weapon="*res://globals/weapon.gd"
 Globals="*res://globals/globals.gd"
-Ak="*res://globals/weapons/ak.gd"
-Crossbow="*res://globals/weapons/crossbow.gd"
-Handgun="*res://globals/weapons/handgun.gd"
-RocketLauncher="*res://globals/weapons/rocket_launcher.gd"
-Shotgun="*res://globals/weapons/shotgun.gd"
+Weapons="*res://globals/weapons.gd"
 
 [display]
 

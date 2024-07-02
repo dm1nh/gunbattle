@@ -9,11 +9,12 @@
 script = ExtResource("2_07wcf")
 
 [node name="Sprite2D" parent="." index="0"]
+position = Vector2(2, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ja6kx")
 
 [node name="Marker2D" parent="." index="1"]
-position = Vector2(11, 0)
+position = Vector2(13, 0)
 
 [node name="ShotSound" parent="." index="2"]
 stream = ExtResource("4_hpay8")

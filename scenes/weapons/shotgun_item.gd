@@ -1,4 +1,4 @@
 extends WeaponItem
 
 func _init():
-	weapon = Shotgun
+	weapon = Weapons.Shotgun

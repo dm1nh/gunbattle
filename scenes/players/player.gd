@@ -1,5 +1,4 @@
-extends CharacterBody2D
-class_name Player
+class_name Player extends CharacterBody2D
 
 const SPEED: int = 150
 const JUMP_VELOCITY: int = -250
@@ -17,18 +16,6 @@ var hp: int = Globals.MAX_HP:
 	set(value):
 		_set_global_value("hp", value)
 
-var magazine: int = 0:
-	get:
-		return _get_global_value("magazine")
-	set(value):
-		_set_global_value("magazine", value)
-
-var ammo: int = 0:
-	get:
-		return _get_global_value("ammo")
-	set(value):
-		_set_global_value("ammo", value)
-
 var grenades_count: int = Globals.MAX_GRENADES_COUNT:
 	get:
 		return _get_global_value("grenades_count")
@@ -36,14 +23,18 @@ var grenades_count: int = Globals.MAX_GRENADES_COUNT:
 		_set_global_value("grenades_count", value)
 
 var primary_weapon: Weapon 
-var secondary_weapon: Weapon = Handgun 
+var secondary_weapon: Weapon = Weapons.Handgun 
 var is_primary: bool = false
-var current_weapon: Weapon
+var current_weapon: Weapon:
+	get:
+		return primary_weapon if is_primary else secondary_weapon
 
 var vulnerable_by_grenade: bool = true
 
 signal fire(pos: Vector2, dir: Vector2, weapon: Weapon)
 signal throw_grenade(pos: Vector2, dir: Vector2)
+signal remaining_projecttiles_in_mag_change
+signal extra_ammo_change
 
 var can_fire_next_bullet: bool = true
 var can_throw_next_grenade: bool = true
@@ -66,6 +57,8 @@ var throw_grenade_input: StringName
 var swap_weapon_input: StringName
 
 func _ready():
+	connect("remaining_projecttiles_in_mag_change", _on_remaining_projecttiles_in_mag_change)
+	connect("extra_ammo_change", _on_extra_ammo_change)
 	set_weapon()
 	get_tree().get_nodes_in_group("weapon_spawner")[0].connect("spawn_weapon_box", _on_spawn_weapon_box)
 
@@ -113,28 +106,29 @@ func _player_jump(delta):
 
 func _player_swap_weapon():
 	if Input.is_action_just_pressed(swap_weapon_input):
-		is_primary = not is_primary
-		set_weapon()
+		if primary_weapon:
+			is_primary = not is_primary
+			set_weapon()
 
 func _player_fire():
 	var weapon_item = $WeaponItem.get_child(0) as WeaponItem
 
-	if Input.is_action_just_pressed(fire_input) and magazine <= 0 and ammo > 0 and not reloading:
+	if Input.is_action_just_pressed(fire_input) and current_weapon.remaining_projecttiles_in_mag <= 0 and current_weapon.extra_ammo > 0 and not reloading:
 		reloading = true
-		ammo -= weapon_item.weapon.capacity
 		$ReloadingIcon.visible = true	
 		weapon_item.get_node("ReloadSound").play()
 		$ReloadCooldownTimer.wait_time = weapon_item.weapon.reload_time
 		$ReloadCooldownTimer.start()
 
-	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and magazine > 0 and not reloading:
+	if Input.is_action_just_pressed(fire_input) and can_fire_next_bullet and current_weapon.remaining_projecttiles_in_mag > 0 and not reloading:
 		$BulletCooldownTimer.wait_time = 60.0 / weapon_item.weapon.firerate
 		$BulletCooldownTimer.start()
 		can_fire_next_bullet = false
 		var pos = weapon_item.get_node("Marker2D").global_position
 		weapon_item.get_node("ShotSound").play()
 		fire.emit(pos, direction, current_weapon)
-		magazine -= 1
+		current_weapon.remaining_projecttiles_in_mag -= 1
+		remaining_projecttiles_in_mag_change.emit()
 
 func _player_throw_grenade():
 	if Input.is_action_just_pressed(throw_grenade_input) and can_throw_next_grenade and grenades_count > 0:
@@ -159,12 +153,12 @@ func _player_die():
 
 func set_weapon():
 	can_fire_next_bullet = true
-
-	current_weapon = primary_weapon if is_primary else secondary_weapon
 	if $WeaponItem.get_child_count() > 0:
 		$WeaponItem.get_child(0).queue_free()
 	var wp = get_weapon_scene_by_type(current_weapon.type).instantiate() as Node2D
 	$WeaponItem.add_child(wp)
+	remaining_projecttiles_in_mag_change.emit()
+	extra_ammo_change.emit()
 
 func get_item(type: Type.ItemType, amount: int):
 	if type == Type.ItemType.Health:
@@ -206,7 +200,16 @@ func _on_grenade_cooldown_timer_timeout():
 func _on_reload_cooldown_timer_timeout():
 	reloading = false
 	$ReloadingIcon.visible = false
-	magazine = $WeaponItem.get_child(0).capacity
+	current_weapon.remaining_projecttiles_in_mag = current_weapon.capacity
+	remaining_projecttiles_in_mag_change.emit()
+	current_weapon.extra_ammo -= current_weapon.capacity
+	extra_ammo_change.emit()
+
+func _on_remaining_projecttiles_in_mag_change():
+	_set_global_value("remaining_projecttiles_in_mag", current_weapon.remaining_projecttiles_in_mag)
+
+func _on_extra_ammo_change():
+	_set_global_value("extra_ammo", current_weapon.extra_ammo)
 
 # utils
 func get_weapon_scene_by_type(type: Type.WeaponType) -> PackedScene:

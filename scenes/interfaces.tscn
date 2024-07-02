@@ -25,7 +25,6 @@ anchor_right = 0.02
 anchor_bottom = 0.02
 offset_right = 34.0
 offset_bottom = 4.0
-value = 80.0
 texture_under = ExtResource("1_igojt")
 texture_over = ExtResource("2_c5q88")
 texture_progress = ExtResource("3_qqrj7")
@@ -40,7 +39,6 @@ offset_left = -40.0
 offset_right = -6.0
 offset_bottom = 4.0
 grow_horizontal = 0
-value = 50.0
 fill_mode = 1
 texture_under = ExtResource("1_igojt")
 texture_over = ExtResource("2_c5q88")
@@ -74,7 +72,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerBlueStats/Ammo/MarginContainer"]
 layout_mode = 2
-text = "21"
+text = "00"
 label_settings = SubResource("LabelSettings_wnfx7")
 
 [node name="Magazine" type="HBoxContainer" parent="PlayerBlueStats"]
@@ -92,7 +90,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerBlueStats/Magazine/MarginContainer"]
 layout_mode = 2
-text = "07"
+text = "00"
 label_settings = SubResource("LabelSettings_wnfx7")
 
 [node name="Grenade" type="HBoxContainer" parent="PlayerBlueStats"]
@@ -110,7 +108,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerBlueStats/Grenade/MarginContainer"]
 layout_mode = 2
-text = "03
+text = "00
 "
 label_settings = SubResource("LabelSettings_wnfx7")
 
@@ -137,8 +135,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerRedStats/Grenade/MarginContainer"]
 layout_mode = 2
-text = "03
-"
+text = "00"
 label_settings = SubResource("LabelSettings_wnfx7")
 
 [node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Grenade"]
@@ -156,7 +153,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerRedStats/Magazine/MarginContainer"]
 layout_mode = 2
-text = "07"
+text = "00"
 label_settings = SubResource("LabelSettings_wnfx7")
 
 [node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Magazine"]
@@ -174,7 +171,7 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="PlayerRedStats/Ammo/MarginContainer"]
 layout_mode = 2
-text = "21"
+text = "00"
 label_settings = SubResource("LabelSettings_wnfx7")
 
 [node name="TextureRect" type="TextureRect" parent="PlayerRedStats/Ammo"]

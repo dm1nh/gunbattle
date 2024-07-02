@@ -9,4 +9,5 @@ func _init():
 	reload_time = 3
 	spread = 3
 	capacity = 5
+	remaining_projecttiles_in_mag = capacity
 	extra_ammo = 10

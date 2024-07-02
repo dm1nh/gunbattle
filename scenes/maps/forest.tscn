@@ -80,31 +80,31 @@ sources/0 = SubResource("TileSetAtlasSource_c4ivk")
 
 [node name="Forest" instance=ExtResource("1_0m7bj")]
 
-[node name="WeaponBoxes_SpawnPositions#Marker2D" type="Marker2D" parent="." index="0"]
-position = Vector2(75, 233)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D2" type="Marker2D" parent="." index="1"]
-position = Vector2(245, 233)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D3" type="Marker2D" parent="." index="2"]
-position = Vector2(86, 169)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D4" type="Marker2D" parent="." index="3"]
-position = Vector2(238, 169)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D5" type="Marker2D" parent="." index="4"]
-position = Vector2(160, 137)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D6" type="Marker2D" parent="." index="5"]
-position = Vector2(46, 57)
-
-[node name="WeaponBoxes_SpawnPositions#Marker2D7" type="Marker2D" parent="." index="6"]
-position = Vector2(271, 57)
-
-[node name="Map" parent="." index="7"]
+[node name="Map" parent="." index="0"]
 z_index = -100
 
 [node name="TileMap" type="TileMap" parent="Map" index="1"]
 tile_set = SubResource("TileSet_v6ews")
 format = 2
 layer_0/tile_data = PackedInt32Array(917504, 65536, 0, 917505, 65536, 0, 917506, 65536, 0, 917507, 65536, 0, 917523, 65536, 0, 917522, 65536, 0, 917521, 65536, 0, 917520, 65536, 0, 917519, 65536, 0, 917518, 65536, 0, 917517, 65536, 0, 917516, 65536, 0, 917515, 196608, 2, 917514, 65536, 1, 917513, 65536, 1, 917512, 327680, 2, 917511, 65536, 0, 917510, 65536, 0, 917509, 65536, 0, 917508, 65536, 0, 851978, 65536, 1, 851977, 65536, 1, 851976, 0, 1, 851979, 131072, 1, 786440, 0, 0, 786443, 131072, 0, 786441, 65536, 0, 786442, 65536, 0, 655366, 65536, 0, 655365, 65536, 0, 655364, 65536, 0, 655367, 131072, 0, 655373, 65536, 0, 655374, 65536, 0, 655375, 65536, 0, 655372, 0, 0, 589827, 131072, 0, 589826, 65536, 0, 589825, 65536, 0, 589824, 65536, 0, 589840, 0, 0, 589841, 65536, 0, 589842, 65536, 0, 589843, 65536, 0, 655363, 196608, 2, 655376, 327680, 2, 524296, 65536, 0, 524297, 65536, 0, 524298, 65536, 0, 524299, 65536, 0, 524295, 0, 0, 524300, 131072, 0, 393222, 131072, 0, 393221, 65536, 0, 393220, 65536, 0, 393219, 65536, 0, 393230, 65536, 0, 393231, 65536, 0, 393232, 65536, 0, 393229, 0, 0, 262151, 65536, 0, 262152, 327680, 2, 262156, 65536, 0, 262155, 196608, 2, 262157, 131072, 0, 262150, 0, 0, 196611, 65536, 0, 196610, 65536, 0, 196609, 196608, 2, 196626, 327680, 2, 196625, 65536, 0, 196624, 65536, 0, 196612, 131072, 0, 196623, 0, 0, 196619, 131072, 0, 196616, 0, 0, 196617, 65536, 0, 196618, 65536, 0, 131072, 65536, 0, 131091, 65536, 0, 131090, 0, 0, 131073, 131072, 0, 65541, 65536, 0, 65542, 65536, 0, 65543, 131072, 0, 65548, 65536, 0, 65549, 65536, 0, 65550, 131072, 0, 65540, 0, 0, 65547, 0, 0, 393233, 131072, 0, 458769, 196608, 2, 458754, 327680, 2, 393218, 0, 0, 458753, 65536, 0, 458770, 65536, 0, 458752, 0, 0, 458771, 131072, 0)
+
+[node name="Marker2D" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="0"]
+position = Vector2(75, 233)
+
+[node name="Marker2D2" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="1"]
+position = Vector2(245, 233)
+
+[node name="Marker2D3" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="2"]
+position = Vector2(86, 169)
+
+[node name="Marker2D4" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="3"]
+position = Vector2(238, 169)
+
+[node name="Marker2D5" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="4"]
+position = Vector2(160, 137)
+
+[node name="Marker2D6" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="5"]
+position = Vector2(46, 57)
+
+[node name="Marker2D7" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="6"]
+position = Vector2(271, 57)
