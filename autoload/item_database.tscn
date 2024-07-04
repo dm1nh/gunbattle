@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bspygi2vydheb"]
+
+[ext_resource type="Script" path="res://autoload/item_database.gd" id="1_gvj5s"]
+
+[node name="ItemDatabase" type="Node2D"]
+script = ExtResource("1_gvj5s")

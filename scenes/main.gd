@@ -11,26 +11,29 @@ func _ready():
 		player.connect("fire", _on_player_fire)
 		player.connect("throw_grenade", _on_player_throw_grenade)
 
-func _on_player_fire(pos: Vector2, dir: Vector2, weapon: Weapon):
-	if weapon.spread > 1:
-		_create_projecttile_scene(pos, dir.rotated(PI/24), weapon.damage_per_projecttile, weapon.projecttile)
-		_create_projecttile_scene(pos, dir.rotated(-PI/24), weapon.damage_per_projecttile, weapon.projecttile)
-	_create_projecttile_scene(pos, dir, weapon.damage_per_projecttile, weapon.projecttile)
+func _on_player_fire(pos: Vector2, dir: Vector2, stats: Weapon):
+	if stats.spread == 3:
+		_create_projecttile_scene(pos, dir.rotated(PI/24), stats.damage_per_projecttile, stats.projecttile)
+		_create_projecttile_scene(pos, dir.rotated(-PI/24), stats.damage_per_projecttile, stats.projecttile)
+	_create_projecttile_scene(pos, dir, stats.damage_per_projecttile, stats.projecttile)
 
 func _on_player_throw_grenade(pos: Vector2, dir: Vector2):
 	var grenade = grenade_scene.instantiate() as RigidBody2D
 	grenade.position = pos
-	grenade.linear_velocity = dir.rotated(-PI/4) * grenade.speed
+	if dir.x > 0:
+		grenade.linear_velocity = dir.rotated(-PI/4) * grenade.speed
+	else:
+		grenade.linear_velocity = dir.rotated(PI/4) * grenade.speed
 	$Projecttiles.add_child(grenade)
 	grenade.get_node("ThrowGrenadeSound").play()
 	
-func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_projecttile: int, projecttile: Type.ProjecttileType):
+func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_projecttile: int, projecttile: Weapon.ProjecttileType):
 	var scene: PackedScene
-	if projecttile == Type.ProjecttileType.Bullet:
+	if projecttile == Weapon.ProjecttileType.BULLET:
 		scene = bullet_scene
-	elif projecttile == Type.ProjecttileType.Arrow:
+	elif projecttile == Weapon.ProjecttileType.ARROW:
 		scene = arrow_scene
-	elif projecttile == Type.ProjecttileType.Rocket:
+	elif projecttile == Weapon.ProjecttileType.ROCKET:
 		scene = rocket_scene
 
 	var instance = scene.instantiate()

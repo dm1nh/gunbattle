@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch5yiv2bwdkac"]
+
+[ext_resource type="PackedScene" uid="uid://deqhfmnxmc7j0" path="res://scenes/projecttiles/projecttile.tscn" id="1_l2c7o"]
+
+[node name="GrenadeProjecttile" instance=ExtResource("1_l2c7o")]

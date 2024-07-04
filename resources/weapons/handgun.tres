@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://ce1gfwmx1ftxu"]
+
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="1_0pdot"]
+[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_gdyvv"]
+[ext_resource type="Texture2D" uid="uid://3sxeveu814jf" path="res://graphics/weapons/handgun.png" id="2_sx6x7"]
+[ext_resource type="AudioStream" uid="uid://bw25lump5q43c" path="res://audios/weapons/handgun.wav" id="3_27tbg"]
+
+[resource]
+script = ExtResource("1_0pdot")
+name = "handgun"
+texture = ExtResource("2_sx6x7")
+is_primary = true
+projecttile = 0
+damage_per_projecttile = 20
+firerate = 60
+capacity = 7
+reserve_ammo_limit = 14
+in_mag = 7
+reload_time = 1.5
+spread = 1
+shot_sound_effect = ExtResource("3_27tbg")
+reload_sound_effect = ExtResource("1_gdyvv")

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://xvna8ms6jmhg"]
+
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="1_hp71p"]
+[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_qa51u"]
+[ext_resource type="Texture2D" uid="uid://bss1q84vwoc40" path="res://graphics/weapons/shotgun.png" id="2_al5be"]
+[ext_resource type="AudioStream" uid="uid://ddfnfa87ri0i7" path="res://audios/weapons/shotgun.wav" id="3_d5y2e"]
+
+[resource]
+script = ExtResource("1_hp71p")
+name = "shotgun"
+texture = ExtResource("2_al5be")
+is_primary = true
+projecttile = 0
+damage_per_projecttile = 15
+firerate = 300
+capacity = 5
+reserve_ammo_limit = 15
+in_mag = 0
+reload_time = 2.0
+spread = 3
+shot_sound_effect = ExtResource("3_d5y2e")
+reload_sound_effect = ExtResource("1_qa51u")

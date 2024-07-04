@@ -17,10 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Type="*res://globals/type.gd"
-Weapon="*res://globals/weapon.gd"
-Globals="*res://globals/globals.gd"
-Weapons="*res://globals/weapons.gd"
+Globals="*res://autoload/globals.gd"
+WeaponDatabase="*res://autoload/weapon_database.gd"
+ItemDatabase="*res://autoload/item_database.gd"
 
 [display]
 

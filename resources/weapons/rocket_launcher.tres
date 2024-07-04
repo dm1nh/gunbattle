@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://bm6xju2esggw3"]
+
+[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_cm6xb"]
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="1_kp7r3"]
+[ext_resource type="Texture2D" uid="uid://b1uxff1dsfheh" path="res://graphics/weapons/launcher.png" id="2_f8bs8"]
+[ext_resource type="AudioStream" uid="uid://belkd00xqk2jw" path="res://audios/weapons/rocket_launcher.wav" id="3_wla1n"]
+
+[resource]
+script = ExtResource("1_kp7r3")
+name = "rocket_launcher"
+texture = ExtResource("2_f8bs8")
+is_primary = true
+projecttile = 2
+damage_per_projecttile = 120
+firerate = 60
+capacity = 1
+reserve_ammo_limit = 10
+in_mag = 0
+reload_time = 1.0
+spread = 1
+shot_sound_effect = ExtResource("3_wla1n")
+reload_sound_effect = ExtResource("1_cm6xb")

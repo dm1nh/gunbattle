@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c0u7fo47h0spn"]
+
+[ext_resource type="Script" path="res://scenes/item.gd" id="1_mbquj"]
+[ext_resource type="Texture2D" uid="uid://cg6te8sv66eyt" path="res://graphics/items/grenade_item.png" id="2_p5r5m"]
+
+[resource]
+script = ExtResource("1_mbquj")
+texture = ExtResource("2_p5r5m")
+type = 1
+amount = 1

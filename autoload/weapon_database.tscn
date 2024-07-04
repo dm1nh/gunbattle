@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb2oetdwnbouf"]
+
+[ext_resource type="Script" path="res://autoload/weapon_database.gd" id="1_t4h6e"]
+
+[node name="WeaponDatabase" type="Node2D"]
+script = ExtResource("1_t4h6e")
