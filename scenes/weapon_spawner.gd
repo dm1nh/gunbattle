@@ -15,20 +15,20 @@ func _process(_delta):
 				is_duplicate = true	
 
 		if !is_duplicate:
-			var node = instantiate_weapon_scene(random_box(), selected_marker.global_position)
+			var node = instantiate_weapon_scene(random_weapon_name_by_percentage(), selected_marker.global_position)
 			spawn_weapon_box.emit(node)
 			should_spawn = false
 
 func _on_spawn_cooldown_timer_timeout():
 	should_spawn = true
 
-func random_box() -> String:
+func random_weapon_name_by_percentage() -> String:
 	var rand = randi_range(1, 100)
-	if rand > 32 and rand <= 55:
+	if rand > 20 and rand <= 45:
 		return "ak" 
-	if rand > 55 and rand <= 75:
+	if rand > 45 and rand <= 70:
 		return "shotgun" 
-	if rand > 75 and rand <= 90:
+	if rand > 70 and rand <= 90:
 		return "crossbow"
 	if rand > 90 and rand <= 100:
 		return "rocket_launcher"

@@ -25,3 +25,8 @@ func _on_body_entered(body:Node2D):
 
 func _on_body_exited(_body:Node2D):
 	body_inside = false
+
+
+func _on_disappear_cooldown_timer_timeout():
+	queue_free()
+

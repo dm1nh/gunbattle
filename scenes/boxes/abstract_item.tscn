@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnsnr4nij72ka"]
 
-[ext_resource type="Script" path="res://scenes/boxes/items/abstract_item.gd" id="1_0nb3i"]
+[ext_resource type="Script" path="res://scenes/boxes/abstract_item.gd" id="1_ikkl8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jf5kt"]
 size = Vector2(10, 7.75)
 
-[node name="AbstractItem" type="Area2D"]
+[node name="AbstractItem" type="Area2D" groups=["item_boxes"]]
 collision_layer = 4
 collision_mask = 9
-script = ExtResource("1_0nb3i")
+script = ExtResource("1_ikkl8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.125)
@@ -18,4 +18,10 @@ shape = SubResource("RectangleShape2D_jf5kt")
 position = Vector2(0, -4)
 scale = Vector2(0.5, 0.5)
 
+[node name="DisappearCooldownTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DisappearCooldownTimer" to="." method="_on_disappear_cooldown_timer_timeout"]
