@@ -1,9 +1,12 @@
 extends Area2D
 class_name Projecttile
 
-@export var speed: int = 500
+@export var speed: int = 450
 var direction: Vector2 = Vector2.RIGHT
 var damage: int
+
+func _ready():
+	rotation = PI if direction.x < 0 else 0.0
 
 func _process(delta):
 	position += direction * speed * delta	

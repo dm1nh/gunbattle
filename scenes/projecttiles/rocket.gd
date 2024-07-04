@@ -1,4 +1,4 @@
 extends Projecttile
 
-func _ready():
-	speed = 200
+func _init():
+	speed = 250
