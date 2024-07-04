@@ -9,9 +9,15 @@ var abstract_weapon_box_scene: PackedScene = preload("res://scenes/boxes/abstrac
 func _process(_delta):
 	if should_spawn:
 		var selected_marker = $SpawnPositions.get_child(randi() % $SpawnPositions.get_child_count())
-		var node = instantiate_weapon_scene(random_box(), selected_marker.global_position)
-		spawn_weapon_box.emit(node)
-		should_spawn = false
+		var is_duplicate = false
+		for weapon_box in get_tree().get_nodes_in_group("weapon_boxes"):
+			if weapon_box.global_position.distance_to(selected_marker.global_position) < 32:
+				is_duplicate = true	
+
+		if !is_duplicate:
+			var node = instantiate_weapon_scene(random_box(), selected_marker.global_position)
+			spawn_weapon_box.emit(node)
+			should_spawn = false
 
 func _on_spawn_cooldown_timer_timeout():
 	should_spawn = true
