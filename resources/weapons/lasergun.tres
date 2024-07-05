@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://ua5n25epfspk"]
+
+[ext_resource type="AudioStream" uid="uid://bug7alji5fip8" path="res://audios/weapons/lasergun_reload.wav" id="1_8esui"]
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="2_p3y3s"]
+[ext_resource type="AudioStream" uid="uid://c8biwy1p3b0q5" path="res://audios/weapons/lasergun.wav" id="3_kpco8"]
+[ext_resource type="Texture2D" uid="uid://bl1ihmyhh22oh" path="res://graphics/weapons/lasergun.png" id="4_k3k45"]
+
+[resource]
+script = ExtResource("2_p3y3s")
+name = "lasergun"
+texture = ExtResource("4_k3k45")
+is_primary = true
+projecttile = 3
+damage_per_projecttile = 8
+firerate = 900
+capacity = 20
+reserve_ammo_limit = 40
+in_mag = 20
+reload_time = 2.0
+spread = 1
+shot_sound_effect = ExtResource("3_kpco8")
+reload_sound_effect = ExtResource("1_8esui")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://xvna8ms6jmhg"]
 
+[ext_resource type="AudioStream" uid="uid://cqa777arfyrq0" path="res://audios/weapons/shotgun_reload.wav" id="1_8bwf6"]
 [ext_resource type="Script" path="res://scenes/weapon.gd" id="1_hp71p"]
-[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_qa51u"]
 [ext_resource type="Texture2D" uid="uid://bss1q84vwoc40" path="res://graphics/weapons/shotgun.png" id="2_al5be"]
 [ext_resource type="AudioStream" uid="uid://ddfnfa87ri0i7" path="res://audios/weapons/shotgun.wav" id="3_d5y2e"]
 
@@ -19,4 +19,4 @@ in_mag = 5
 reload_time = 2.0
 spread = 3
 shot_sound_effect = ExtResource("3_d5y2e")
-reload_sound_effect = ExtResource("1_qa51u")
+reload_sound_effect = ExtResource("1_8bwf6")

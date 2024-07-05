@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://b0d51lal6s8jr"]
 
-[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_ahpr8"]
+[ext_resource type="AudioStream" uid="uid://cepn54uisksaa" path="res://audios/weapons/crossbow_reload.wav" id="1_a5oiq"]
 [ext_resource type="Script" path="res://scenes/weapon.gd" id="1_cvsd8"]
 [ext_resource type="Texture2D" uid="uid://cflgo2glyocmu" path="res://graphics/weapons/crossbow.png" id="2_bwsbv"]
 [ext_resource type="AudioStream" uid="uid://bh4eyns0nlmkv" path="res://audios/weapons/crossbow.wav" id="3_ybh3c"]
@@ -19,4 +19,4 @@ in_mag = 1
 reload_time = 0.5
 spread = 1
 shot_sound_effect = ExtResource("3_ybh3c")
-reload_sound_effect = ExtResource("1_ahpr8")
+reload_sound_effect = ExtResource("1_a5oiq")

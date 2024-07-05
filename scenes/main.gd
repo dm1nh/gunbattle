@@ -3,6 +3,7 @@ extends Node2D
 var bullet_scene: PackedScene = preload("res://scenes/projecttiles/bullet.tscn")
 var arrow_scene: PackedScene = preload("res://scenes/projecttiles/arrow.tscn")
 var rocket_scene: PackedScene = preload("res://scenes/projecttiles/rocket.tscn")
+var laser_scene: PackedScene = preload("res://scenes/projecttiles/laser.tscn")
 
 var grenade_scene: PackedScene = preload("res://scenes/projecttiles/grenade.tscn")
 
@@ -35,6 +36,8 @@ func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_projecttil
 		scene = arrow_scene
 	elif projecttile == Weapon.ProjecttileType.ROCKET:
 		scene = rocket_scene
+	elif projecttile == Weapon.ProjecttileType.LASER:
+		scene = laser_scene
 
 	var instance = scene.instantiate()
 	instance.position = pos

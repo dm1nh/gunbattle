@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://cpekc808oweql"]
 
+[ext_resource type="AudioStream" uid="uid://b40paykn2mxdy" path="res://audios/weapons/ak_reload.wav" id="1_1bn56"]
 [ext_resource type="Script" path="res://scenes/weapon.gd" id="1_84bvg"]
-[ext_resource type="AudioStream" uid="uid://b1dqcg2f1crbo" path="res://audios/weapons/reload.wav" id="1_bmyxf"]
 [ext_resource type="Texture2D" uid="uid://cy5fmqqwrqew" path="res://graphics/weapons/ak.png" id="2_ou4mo"]
 [ext_resource type="AudioStream" uid="uid://cdfsqecv87jh0" path="res://audios/weapons/ak.wav" id="3_mfqmb"]
 
@@ -19,4 +19,4 @@ in_mag = 30
 reload_time = 2.4
 spread = 1
 shot_sound_effect = ExtResource("3_mfqmb")
-reload_sound_effect = ExtResource("1_bmyxf")
+reload_sound_effect = ExtResource("1_1bn56")
