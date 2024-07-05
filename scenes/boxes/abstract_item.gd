@@ -10,14 +10,12 @@ var stats: Item = null:
 
 
 func _ready():
-	stats = ItemDatabase.get_item(item_name)	
+	stats = ItemDatabase.get_item(item_name)
 
 func _on_body_entered(body: Node2D):
 	if "get_item" in body:
 		body.get_item(stats)
 		queue_free()
 
-
 func _on_disappear_cooldown_timer_timeout():
 	queue_free()
-
