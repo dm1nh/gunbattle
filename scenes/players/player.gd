@@ -113,7 +113,7 @@ func _player_swap_weapon():
 func _player_fire():
 	var weapon_item = $Weapon.get_child(0) as AbstractWeapon
 
-	if Input.is_action_just_pressed(fire_input) and current_weapon.in_mag <= 0 and current_weapon.reserve_ammo_limit > 0 and not reloading:
+	if current_weapon.in_mag <= 0 and current_weapon.reserve_ammo_limit > 0 and not reloading:
 		reloading = true
 		$ReloadingIcon.visible = true	
 		weapon_item.get_node("ReloadSound").play()
