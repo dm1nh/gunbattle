@@ -6,7 +6,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") # gravit
 
 var abstract_weapon_scene: PackedScene = preload("res://scenes/abstract_weapon.tscn")
 
-@onready var player_name = name.replace("Player", "").to_lower()	
+var player_name: String
 enum PlayerState { Idle, Running, Jumping, Dead }
 var state: PlayerState = PlayerState.Idle
 var jump_count: int = 0
@@ -24,17 +24,19 @@ var grenades_count: int = Globals.MAX_GRENADES_COUNT:
 	set(value):
 		_set_global_value("grenades_count", value)
 
-@onready var primary_weapon: Weapon 
+@onready var primary_weapon: Weapon
 @onready var secondary_weapon: Weapon = WeaponDatabase.get_weapon("handgun")
 var is_primary: bool = false
-@onready var current_weapon: Weapon = secondary_weapon
+@onready var current_weapon: Weapon = secondary_weapon:
+	get:
+		return primary_weapon if is_primary else secondary_weapon
 
 var vulnerable_by_grenade: bool = true
 
 signal fire(pos: Vector2, dir: Vector2, stats: Weapon)
 signal throw_grenade(pos: Vector2, dir: Vector2)
-signal in_mag_change
-signal reserve_ammo_limit_change
+signal in_mag_change()
+signal reserve_ammo_change()
 
 var can_fire_next_bullet: bool = true
 var can_throw_next_grenade: bool = true
@@ -51,8 +53,10 @@ var throw_grenade_input: StringName
 var swap_weapon_input: StringName
 
 func _ready():
+	_on_in_mag_change()
+	_on_reserve_ammo_change()
 	connect("in_mag_change", _on_in_mag_change)
-	connect("reserve_ammo_limit_change", _on_reserve_ammo_limit_change)
+	connect("reserve_ammo_change", _on_reserve_ammo_change)
 	set_weapon()
 	get_tree().get_nodes_in_group("weapon_spawner")[0].connect("spawn_weapon_box", _on_spawn_weapon_box)
 
@@ -146,15 +150,12 @@ func _player_die():
 		state = PlayerState.Dead
 
 func set_weapon():
-	current_weapon = primary_weapon if is_primary else secondary_weapon
 	can_fire_next_bullet = true
 	for weapon_node in $Weapon.get_children():
 		weapon_node.queue_free()
 	var wp = abstract_weapon_scene.instantiate() as AbstractWeapon
 	wp.wp_name = current_weapon.name
 	$Weapon.add_child(wp)
-	in_mag_change.emit()
-	reserve_ammo_limit_change.emit()
 
 func get_item(stats: Item):
 	if stats.type == Item.ItemType.HEALTH:
@@ -197,15 +198,15 @@ func _on_reload_cooldown_timer_timeout():
 	reloading = false
 	$ReloadingIcon.visible = false
 	current_weapon.in_mag = current_weapon.capacity
-	in_mag_change.emit()
 	current_weapon.reserve_ammo_limit -= current_weapon.capacity
-	reserve_ammo_limit_change.emit()
+	in_mag_change.emit()
+	reserve_ammo_change.emit()
 
 func _on_in_mag_change():
-	_set_global_value("in_mag", current_weapon.capacity)
+	_set_global_value("in_mag", current_weapon.in_mag)
 
-func _on_reserve_ammo_limit_change():
-	_set_global_value("reserve_ammo_limit", current_weapon.reserve_ammo_limit)
+func _on_reserve_ammo_change():
+	_set_global_value("reserve_ammo", current_weapon.reserve_ammo_limit)
 
 # utils
 func _get_global_value(n: String):
