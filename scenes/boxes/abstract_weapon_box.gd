@@ -10,14 +10,13 @@ var stats: Weapon = null:
 
 var body_inside: bool = false
 var body_node: Node2D
-signal wait_get_weapon_box(box: Area2D, stats: Weapon)
 
 func _ready():
 	stats = WeaponDatabase.get_weapon(wp_name)
 
 func _process(_delta):
-	if body_inside and body_node is Player:
-		wait_get_weapon_box.emit(self, stats)
+	if body_inside and body_node is Player and "get_weapon" in body_node:
+		body_node.get_weapon(self, stats)
 
 func _on_body_entered(body:Node2D):
 	body_node = body 
@@ -26,7 +25,5 @@ func _on_body_entered(body:Node2D):
 func _on_body_exited(_body:Node2D):
 	body_inside = false
 
-
 func _on_disappear_cooldown_timer_timeout():
 	queue_free()
-

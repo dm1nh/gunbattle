@@ -2,7 +2,6 @@ extends Node2D
 
 var should_spawn: bool = false
 var claimed_markers: Array[Marker2D] = []
-signal spawn_weapon_box(box: Area2D)
 
 var abstract_weapon_box_scene: PackedScene = preload("res://scenes/boxes/abstract_weapon_box.tscn")
 
@@ -15,8 +14,7 @@ func _process(_delta):
 				is_duplicate = true	
 
 		if !is_duplicate:
-			var node = instantiate_weapon_scene(random_weapon_name_by_percentage(), selected_marker.global_position)
-			spawn_weapon_box.emit(node)
+			instantiate_weapon_scene(random_weapon_name_by_percentage(), selected_marker.global_position)
 			should_spawn = false
 
 func _on_spawn_cooldown_timer_timeout():
@@ -34,9 +32,8 @@ func random_weapon_name_by_percentage() -> String:
 		return "rocket_launcher"
 	return "handgun"
 
-func instantiate_weapon_scene(wp_name: String, pos: Vector2) -> Area2D:
+func instantiate_weapon_scene(wp_name: String, pos: Vector2) -> void:
 	var node = abstract_weapon_box_scene.instantiate()
 	node.wp_name = wp_name
 	node.global_position = pos
 	$Boxes.add_child(node)
-	return node
