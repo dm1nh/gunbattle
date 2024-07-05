@@ -156,6 +156,8 @@ func set_weapon():
 	var wp = abstract_weapon_scene.instantiate() as AbstractWeapon
 	wp.wp_name = current_weapon.name
 	$Weapon.add_child(wp)
+	in_mag_change.emit()
+	reserve_ammo_change.emit()
 
 func get_item(stats: Item):
 	if stats.type == Item.ItemType.HEALTH:
