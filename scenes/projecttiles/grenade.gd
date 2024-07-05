@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var speed: int = 300
-const DAMAGE_RADIUS: int = 64
+const DAMAGE_RADIUS: int = 48
 var exploded: int = false
 const GRENADE_MAX_DAMAGE: int = 120
 const GRENADE_MIN_DAMAGE: int = 40
