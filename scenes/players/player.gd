@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
+var viewport_size: Vector2
 const SPEED: int = 150
 const JUMP_VELOCITY: int = -250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity") # gravity value from project settings
@@ -54,6 +55,7 @@ var throw_grenade_input: StringName
 var swap_weapon_input: StringName
 
 func _ready():
+	viewport_size = get_viewport().get_visible_rect().size
 	_on_in_mag_change()
 	_on_reserve_ammo_change()
 	connect("in_mag_change", _on_in_mag_change)
@@ -61,14 +63,15 @@ func _ready():
 	set_weapon()
 
 func _process(delta):
-	_player_move()
-	_player_jump(delta)
-	move_and_slide()
-	_player_swap_weapon()
-	_player_fire()
-	_player_throw_grenade()
+	if not state == PlayerState.Dead:
+		_player_move()
+		_player_jump(delta)
+		_player_swap_weapon()
+		_player_fire()
+		_player_throw_grenade()
 	_player_animate()
 	_player_die()
+	move_and_slide()
 
 func _player_move():
 	var movement_direction: float = Input.get_axis(left_input, right_input)
@@ -78,10 +81,9 @@ func _player_move():
 		velocity.x = movement_direction * SPEED
 		$Sprite2D.flip_h = movement_direction < 0
 		$Weapon.scale.x = direction.x
-		$Weapon.z_index = -1 if movement_direction < 0 else 1
+		$Weapon.z_index = 0 if movement_direction < 0 else 1
 		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
 
-		var viewport_size = get_viewport().get_visible_rect().size
 		if global_position.x > viewport_size.x:
 			global_position.x = global_position.x - viewport_size.x
 		if global_position.x <= 1:
@@ -146,7 +148,7 @@ func _player_animate():
 		$StateAnimationPlayer.play("dead")
 
 func _player_die():
-	if hp == 0:
+	if hp == 0 or global_position.y > viewport_size.y:
 		state = PlayerState.Dead
 
 func set_weapon():
