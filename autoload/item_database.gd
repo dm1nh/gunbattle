@@ -14,4 +14,4 @@ func _ready():
 		file_name = dir.get_next()
 
 func get_item(id: String) -> Item:
-	return cache[id + ".tres"]
+	return cache[id + ".tres"].duplicate()

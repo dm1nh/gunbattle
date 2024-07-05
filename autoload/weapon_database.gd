@@ -14,4 +14,4 @@ func _ready():
 		file_name = dir.get_next()
 	
 func get_weapon(id: String) -> Weapon:
-	return cache[id + ".tres"]
+	return cache[id + ".tres"].duplicate()
