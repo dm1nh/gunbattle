@@ -13,6 +13,7 @@ script = ExtResource("1_j76av")
 [node name="Map" type="Node2D" parent="."]
 
 [node name="Background" type="Sprite2D" parent="Map"]
+z_index = -100
 position = Vector2(160, 120)
 texture = ExtResource("2_noe53")
 region_enabled = true
@@ -41,10 +42,10 @@ autostart = true
 [node name="Boxes" type="Node2D" parent="ItemSpawner"]
 
 [node name="PlayerRed" parent="." instance=ExtResource("6_kmjfw")]
-position = Vector2(286, 219)
+position = Vector2(286, 227)
 
 [node name="PlayerBlue" parent="." instance=ExtResource("1_wt3nq")]
-position = Vector2(74, 113)
+position = Vector2(74, 227)
 
 [node name="Projecttiles" type="Node2D" parent="."]
 
