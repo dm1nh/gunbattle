@@ -4,8 +4,8 @@ signal blue_hp_change
 signal red_hp_change
 signal blue_grenades_count_change
 signal red_grenades_count_change
-signal blue_reserve_ammo_limit_change
-signal red_reserve_ammo_limit_change
+signal blue_reserve_ammo_change
+signal red_reserve_ammo_change
 signal blue_in_mag_change
 signal red_in_mag_change
 
@@ -55,16 +55,16 @@ var red_in_mag: int:
 		red_in_mag = value
 		red_in_mag_change.emit()
 
-var blue_reserve_ammo_limit: int:
+var blue_reserve_ammo: int:
 	get:
-		return blue_reserve_ammo_limit
+		return blue_reserve_ammo
 	set(value):
-		blue_reserve_ammo_limit = value
-		blue_reserve_ammo_limit_change.emit()
+		blue_reserve_ammo = value
+		blue_reserve_ammo_change.emit()
 
-var red_reserve_ammo_limit: int:
+var red_reserve_ammo: int:
 	get:
-		return red_reserve_ammo_limit
+		return red_reserve_ammo
 	set(value):
-		red_reserve_ammo_limit = value
-		red_reserve_ammo_limit_change.emit()
+		red_reserve_ammo = value
+		red_reserve_ammo_change.emit()

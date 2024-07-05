@@ -7,16 +7,16 @@ func _ready():
 	Globals.connect("red_grenades_count_change", _on_red_grenade_change)
 	Globals.connect("blue_in_mag_change", _on_blue_in_mag_change)
 	Globals.connect("red_in_mag_change", _on_red_in_mag_change)
-	Globals.connect("blue_reserve_ammo_limit_change", _on_blue_reserve_ammo_limit_change)
-	Globals.connect("red_reserve_ammo_limit_change", _on_red_reserve_ammo_limit_change)
+	Globals.connect("blue_reserve_ammo_change", _on_blue_reserve_ammo_change)
+	Globals.connect("red_reserve_ammo_change", _on_red_reserve_ammo_change)
 	_on_blue_hp_change()
 	_on_red_hp_change()
 	_on_blue_grenade_change()
 	_on_red_grenade_change()
 	_on_blue_in_mag_change()
 	_on_red_in_mag_change()
-	_on_blue_reserve_ammo_limit_change()
-	_on_red_reserve_ammo_limit_change()
+	_on_blue_reserve_ammo_change()
+	_on_red_reserve_ammo_change()
 
 func _on_blue_hp_change():
 	$PlayerBlueHealthBar.value = Globals.blue_hp
@@ -34,10 +34,10 @@ func _on_blue_in_mag_change():
 	$PlayerBlueStats/Magazine/MarginContainer/Label.text =  "0" + str(Globals.blue_in_mag) if Globals.blue_in_mag < 10 else str(Globals.blue_in_mag) 
 
 func _on_red_in_mag_change():
-	$PlayerBlueStats/Magazine/MarginContainer/Label.text =  "0" + str(Globals.red_in_mag) if Globals.red_in_mag < 10 else str(Globals.red_in_mag) 
+	$PlayerRedStats/Magazine/MarginContainer/Label.text =  "0" + str(Globals.red_in_mag) if Globals.red_in_mag < 10 else str(Globals.red_in_mag) 
 
-func _on_blue_reserve_ammo_limit_change():
-	$PlayerBlueStats/Ammo/MarginContainer/Label.text =  "0" + str(Globals.blue_reserve_ammo_limit) if Globals.blue_reserve_ammo_limit < 10 else str(Globals.blue_reserve_ammo_limit) 
+func _on_blue_reserve_ammo_change():
+	$PlayerBlueStats/Ammo/MarginContainer/Label.text =  "0" + str(Globals.blue_reserve_ammo) if Globals.blue_reserve_ammo < 10 else str(Globals.blue_reserve_ammo) 
 
-func _on_red_reserve_ammo_limit_change():
-	$PlayerBlueStats/Ammo/MarginContainer/Label.text =  "0" + str(Globals.red_reserve_ammo_limit) if Globals.red_reserve_ammo_limit < 10 else str(Globals.red_reserve_ammo_limit) 
+func _on_red_reserve_ammo_change():
+	$PlayerRedStats/Ammo/MarginContainer/Label.text =  "0" + str(Globals.red_reserve_ammo) if Globals.red_reserve_ammo < 10 else str(Globals.red_reserve_ammo) 
