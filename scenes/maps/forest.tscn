@@ -137,3 +137,9 @@ position = Vector2(209, 27)
 
 [node name="Marker2D8" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="7"]
 position = Vector2(95, 27)
+
+[node name="PlayerRed" parent="." index="3"]
+position = Vector2(273, 227)
+
+[node name="PlayerBlue" parent="." index="4"]
+position = Vector2(48, 227)
