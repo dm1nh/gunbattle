@@ -4,6 +4,7 @@ var bullet_scene: PackedScene = preload("res://scenes/projecttiles/bullet.tscn")
 var arrow_scene: PackedScene = preload("res://scenes/projecttiles/arrow.tscn")
 var rocket_scene: PackedScene = preload("res://scenes/projecttiles/rocket.tscn")
 var laser_scene: PackedScene = preload("res://scenes/projecttiles/laser.tscn")
+var thorn_scene: PackedScene = preload("res://scenes/projecttiles/thorn.tscn")
 
 var grenade_scene: PackedScene = preload("res://scenes/projecttiles/grenade.tscn")
 
@@ -11,6 +12,10 @@ func _ready():
 	for player in get_tree().get_nodes_in_group("players"):
 		player.connect("fire", _on_player_fire)
 		player.connect("throw_grenade", _on_player_throw_grenade)
+
+func _process(_delta):
+	if Input.is_action_just_pressed("space"):
+		get_tree().change_scene_to_file("res://scenes/map_selection.tscn")
 
 func _on_player_fire(pos: Vector2, dir: Vector2, stats: Weapon):
 	if stats.spread == 3:
@@ -38,6 +43,8 @@ func _create_projecttile_scene(pos: Vector2, dir: Vector2, damage_per_projecttil
 		scene = rocket_scene
 	elif projecttile == Weapon.ProjecttileType.LASER:
 		scene = laser_scene
+	elif projecttile == Weapon.ProjecttileType.THORN:
+		scene = thorn_scene
 
 	var instance = scene.instantiate()
 	instance.position = pos
