@@ -9,7 +9,7 @@ script = ExtResource("1_0aq4s")
 scale = Vector2(0.5, 0.5)
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(11, 0)
+position = Vector2(8, 0)
 
 [node name="ShotSound" type="AudioStreamPlayer2D" parent="."]
 
