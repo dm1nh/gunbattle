@@ -14,7 +14,6 @@ func _process(_delta):
 		for player in get_tree().get_nodes_in_group("players"):
 			var distance_from_grenade: float = player.global_position.distance_to(global_position)
 			if distance_from_grenade <= DAMAGE_RADIUS and "hit" in player:
-				print(distance_from_grenade / DAMAGE_RADIUS)
 				var damage: int = floor(GRENADE_MAX_DAMAGE - (distance_from_grenade / DAMAGE_RADIUS) * (GRENADE_MIN_DAMAGE + GRENADE_MIN_DAMAGE))
 				player.hit(damage, true)
 
