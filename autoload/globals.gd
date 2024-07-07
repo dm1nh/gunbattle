@@ -1,5 +1,6 @@
 extends Node
 
+signal win
 signal blue_hp_change
 signal red_hp_change
 signal blue_grenades_count_change
@@ -8,6 +9,13 @@ signal blue_reserve_ammo_change
 signal red_reserve_ammo_change
 signal blue_in_mag_change
 signal red_in_mag_change
+
+var winner_name: String:
+	get:
+		return winner_name
+	set(value):
+		winner_name = value
+		win.emit()
 
 const MAX_HP: int = 100
 
@@ -68,3 +76,14 @@ var red_reserve_ammo: int:
 	set(value):
 		red_reserve_ammo = value
 		red_reserve_ammo_change.emit()
+
+func reset():
+	winner_name = ""
+	blue_hp = MAX_HP
+	red_hp = MAX_HP
+	blue_grenades_count = MAX_GRENADES_COUNT
+	red_grenades_count = MAX_GRENADES_COUNT
+	blue_in_mag = 0
+	red_in_mag = 0
+	blue_reserve_ammo = 0
+	red_reserve_ammo = 0

@@ -1,5 +1,8 @@
 extends Control
 
+func _ready():
+	Globals.reset()
+
 func _on_forest_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/maps/forest.tscn")
 

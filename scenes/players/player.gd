@@ -66,10 +66,11 @@ func _ready():
 func _process(delta):
 	if not state == PlayerState.Dead:
 		_player_move()
-		_player_jump(delta)
+		_player_jump()
 		_player_swap_weapon()
 		_player_fire()
 		_player_throw_grenade()
+	_player_fall(delta)
 	_player_animate()
 	_player_die()
 	move_and_slide()
@@ -93,14 +94,14 @@ func _player_move():
 		state = PlayerState.Idle if state != PlayerState.Dead else PlayerState.Dead
 		velocity.x = move_toward(velocity.x, 0, SPEED) # make the players face the current direction
 
-func _player_jump(delta):
-	# falling
+func _player_fall(delta):
 	if not is_on_floor():
 		state = PlayerState.Jumping
 		velocity.y += gravity * delta
 	else:
 		jump_count = 0
 
+func _player_jump():
 	if Input.is_action_just_pressed(jump_input) and jump_count < 2:
 		jump_count += 1
 		velocity.y = JUMP_VELOCITY
@@ -151,6 +152,12 @@ func _player_animate():
 func _player_die():
 	if hp == 0 or global_position.y > viewport_size.y:
 		state = PlayerState.Dead
+		if player_name == "blue":
+			Globals.winner_name = "red"
+		else:
+			Globals.winner_name = "blue"
+		if Input.is_action_just_pressed("space"):
+			get_tree().change_scene_to_file("res://scenes/map_selection.tscn")
 
 func set_weapon():
 	can_fire_next_bullet = true

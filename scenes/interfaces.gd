@@ -9,6 +9,9 @@ func _ready():
 	Globals.connect("red_in_mag_change", _on_red_in_mag_change)
 	Globals.connect("blue_reserve_ammo_change", _on_blue_reserve_ammo_change)
 	Globals.connect("red_reserve_ammo_change", _on_red_reserve_ammo_change)
+	Globals.connect("win", _on_win)
+
+	_on_win()
 	_on_blue_hp_change()
 	_on_red_hp_change()
 	_on_blue_grenade_change()
@@ -17,6 +20,14 @@ func _ready():
 	_on_red_in_mag_change()
 	_on_blue_reserve_ammo_change()
 	_on_red_reserve_ammo_change()
+
+func _on_win():
+	if Globals.winner_name:
+		$WinnerMessage.visible = true
+		$WinnerMessage/Label.text = "Player " + Globals.winner_name + " wins!"
+		$WinnerMessage/Label.label_settings.font_color = Color.ROYAL_BLUE if Globals.winner_name == "blue" else Color.TOMATO
+	else:
+		$WinnerMessage.visible = false
 
 func _on_blue_hp_change():
 	$PlayerBlueHealthBar.value = Globals.blue_hp

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cj1a83nppu01t"]
+[gd_scene load_steps=12 format=3 uid="uid://cj1a83nppu01t"]
 
 [ext_resource type="Texture2D" uid="uid://ui0codmdh52m" path="res://graphics/interfaces/bar_under.png" id="1_igojt"]
 [ext_resource type="Script" path="res://scenes/interfaces.gd" id="1_sw04l"]
@@ -13,6 +13,13 @@
 [sub_resource type="LabelSettings" id="LabelSettings_wnfx7"]
 font = ExtResource("7_j0nf7")
 font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_kx4rb"]
+line_spacing = 0.0
+font = ExtResource("7_j0nf7")
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.180392)
+shadow_offset = Vector2(2, 2)
 
 [node name="Interfaces" type="CanvasLayer"]
 script = ExtResource("1_sw04l")
@@ -178,3 +185,19 @@ label_settings = SubResource("LabelSettings_wnfx7")
 layout_mode = 2
 texture = ExtResource("8_is675")
 stretch_mode = 5
+
+[node name="WinnerMessage" type="HBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="WinnerMessage"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Player Blue wins!"
+label_settings = SubResource("LabelSettings_kx4rb")
