@@ -10,5 +10,6 @@ func _ready():
 	fire_input = "b_fire"
 	throw_grenade_input = "b_throw_grenade"
 	swap_weapon_input = "b_swap_weapon"
+	reload_input = "b_reload"
 
 	super._ready()
