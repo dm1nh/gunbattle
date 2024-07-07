@@ -1,4 +1,4 @@
 extends Projecttile
 
 func _init():
-	speed = 250
+	speed = 200
