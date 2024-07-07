@@ -85,4 +85,58 @@ sources/0 = SubResource("TileSetAtlasSource_xhnmc")
 tile_set = SubResource("TileSet_xnuol")
 format = 2
 layer_0/name = "platform"
-layer_0/tile_data = PackedInt32Array(917504, 65536, 0, 917505, 65536, 0, 917506, 65536, 0, 917523, 65536, 0, 917522, 65536, 0, 917521, 65536, 0, 917520, 65536, 0, 917507, 65536, 0, 917519, 0, 0, 851980, 65536, 0, 917508, 131072, 0, 720900, 65536, 0, 720899, 65536, 0, 720898, 65536, 0, 720910, 65536, 0, 720911, 65536, 0, 720912, 65536, 0, 720913, 131072, 0, 720901, 131072, 0, 720909, 0, 0, 720897, 0, 0, 524294, 65536, 0, 524295, 65536, 0, 524300, 65536, 0, 524299, 0, 0, 524296, 131072, 0, 589834, 0, 0, 589832, 196608, 2, 589833, 131072, 0, 524293, 65536, 0, 524301, 65536, 0, 589824, 65536, 0, 589825, 65536, 0, 589826, 131072, 0, 589843, 65536, 0, 589842, 65536, 0, 589841, 0, 0, 851975, 65536, 0, 393220, 131072, 0, 393216, 65536, 0, 393217, 65536, 0, 393218, 65536, 0, 393219, 65536, 0, 393235, 65536, 0, 393234, 65536, 0, 393233, 65536, 0, 393232, 65536, 0, 393231, 0, 0, 589835, 327680, 2, 524302, 65536, 0, 262150, 65536, 0, 262151, 65536, 0, 262157, 65536, 0, 262156, 65536, 0, 262149, 0, 0, 262155, 0, 0, 262152, 131072, 0, 262158, 131072, 0, 851974, 0, 0, 851981, 131072, 0, 131081, 65536, 0, 131082, 65536, 0, 131080, 0, 0, 131083, 131072, 0, 524292, 0, 0, 524303, 131072, 0, 131075, 65536, 0, 131074, 65536, 0, 131073, 196608, 2, 131088, 65536, 0, 131089, 65536, 0, 131090, 327680, 2, 131076, 65536, 0, 131087, 65536, 0, 65536, 65536, 0, 65537, 131072, 0, 65554, 0, 0, 65555, 65536, 0, 131077, 131072, 0, 131086, 0, 0, 393225, 65536, 0, 393226, 65536, 0, 393224, 0, 0, 393227, 131072, 0, 851979, 0, 0, 851976, 131072, 0)
+layer_0/tile_data = PackedInt32Array(917504, 65536, 0, 917505, 65536, 0, 917506, 65536, 0, 917523, 65536, 0, 917522, 65536, 0, 917521, 65536, 0, 917520, 65536, 0, 917507, 65536, 0, 917519, 0, 0, 851980, 65536, 0, 917508, 131072, 0, 720900, 131072, 0, 720899, 65536, 0, 720910, 0, 0, 720911, 65536, 0, 524294, 65536, 0, 524295, 65536, 0, 524300, 65536, 0, 524299, 0, 0, 524296, 131072, 0, 524293, 65536, 0, 524301, 65536, 0, 589824, 65536, 0, 589825, 65536, 0, 589826, 131072, 0, 589843, 65536, 0, 589842, 65536, 0, 589841, 0, 0, 851975, 65536, 0, 393220, 131072, 0, 393216, 65536, 0, 393217, 65536, 0, 393218, 65536, 0, 393219, 65536, 0, 393235, 65536, 0, 393234, 65536, 0, 393233, 65536, 0, 393232, 65536, 0, 393231, 0, 0, 524302, 65536, 0, 262150, 65536, 0, 262151, 65536, 0, 262157, 65536, 0, 262156, 65536, 0, 262149, 0, 0, 262155, 0, 0, 262152, 131072, 0, 262158, 131072, 0, 851974, 0, 0, 851981, 131072, 0, 131081, 65536, 0, 131082, 65536, 0, 131080, 65536, 0, 131083, 65536, 0, 524292, 0, 0, 524303, 131072, 0, 131075, 65536, 0, 131074, 65536, 0, 131073, 196608, 2, 131088, 65536, 0, 131089, 65536, 0, 131090, 327680, 2, 131076, 65536, 0, 131087, 65536, 0, 65536, 65536, 0, 65537, 131072, 0, 65554, 0, 0, 65555, 65536, 0, 131077, 131072, 0, 131086, 0, 0, 393225, 65536, 0, 393226, 65536, 0, 393224, 0, 0, 393227, 131072, 0, 851979, 65536, 0, 851976, 65536, 0, 851977, 131072, 0, 851978, 0, 0, 720898, 65536, 0, 720912, 65536, 0, 917513, 131072, 1, 917514, 0, 1, 720897, 0, 0, 720913, 131072, 0, 720905, 65536, 0, 720906, 65536, 0, 720904, 0, 0, 720907, 131072, 0, 131084, 131072, 0, 131079, 0, 0)
+
+[node name="Marker2D" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="0"]
+position = Vector2(29, 235)
+
+[node name="Marker2D2" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="1"]
+position = Vector2(296, 235)
+
+[node name="Marker2D3" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="2"]
+position = Vector2(301, 155)
+
+[node name="Marker2D4" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="3"]
+position = Vector2(15, 155)
+
+[node name="Marker2D5" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="4"]
+position = Vector2(34, 107)
+
+[node name="Marker2D6" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="5"]
+position = Vector2(287, 107)
+
+[node name="Marker2D7" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="6"]
+position = Vector2(160, 43)
+
+[node name="Marker2D8" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="7"]
+position = Vector2(58, 43)
+
+[node name="Marker2D9" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="8"]
+position = Vector2(261, 43)
+
+[node name="Marker2D10" type="Marker2D" parent="WeaponSpawner/SpawnPositions" index="9"]
+position = Vector2(161, 107)
+
+[node name="Marker2D" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="0"]
+position = Vector2(104, 139)
+
+[node name="Marker2D2" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="1"]
+position = Vector2(218, 139)
+
+[node name="Marker2D3" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="2"]
+position = Vector2(241, 187)
+
+[node name="Marker2D4" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="3"]
+position = Vector2(62, 187)
+
+[node name="Marker2D5" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="4"]
+position = Vector2(128, 219)
+
+[node name="Marker2D6" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="5"]
+position = Vector2(192, 219)
+
+[node name="Marker2D7" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="6"]
+position = Vector2(111, 75)
+
+[node name="Marker2D8" type="Marker2D" parent="ItemSpawner/SpawnPositions" index="7"]
+position = Vector2(210, 75)
