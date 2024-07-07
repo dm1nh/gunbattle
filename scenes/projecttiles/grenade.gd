@@ -1,10 +1,10 @@
 extends RigidBody2D
 
 @export var speed: int = 300
-const DAMAGE_RADIUS: int = 48
+const DAMAGE_RADIUS: int = 40
 var exploded: int = false
-const GRENADE_MAX_DAMAGE: int = 120
-const GRENADE_MIN_DAMAGE: int = 40
+const GRENADE_MAX_DAMAGE: int = 110
+const GRENADE_MIN_DAMAGE: int = 30
 
 func _ready():
 	$Explosion.visible = false
