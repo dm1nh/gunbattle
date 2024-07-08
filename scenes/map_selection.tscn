@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cku4cht1jke7a"]
+[gd_scene load_steps=4 format=3 uid="uid://cku4cht1jke7a"]
 
 [ext_resource type="Script" path="res://scenes/map_selection.gd" id="1_u3hrt"]
+[ext_resource type="Texture2D" uid="uid://bptvuux1753wk" path="res://graphics/interfaces/maps/forest.png" id="2_df4j1"]
+[ext_resource type="FontFile" uid="uid://bh6ls3ib0ioar" path="res://fonts/Minecraft.ttf" id="2_h7mj1"]
 
 [node name="MapSelection" type="Control"]
 layout_mode = 3
@@ -10,6 +12,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u3hrt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.796243, 0.796243, 0.796243, 1)
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_df4j1")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -31,16 +48,25 @@ alignment = 1
 
 [node name="ForestButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_h7mj1")
+theme_override_font_sizes/font_size = 12
 text = "FOREST"
 
 [node name="FactoryButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_h7mj1")
+theme_override_font_sizes/font_size = 12
 text = "FACTORY"
 
 [node name="MosqueButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_h7mj1")
+theme_override_font_sizes/font_size = 12
 text = "MOSQUE"
 
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/ForestButton" to="." method="_on_forest_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ForestButton" to="." method="_on_forest_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/FactoryButton" to="." method="_on_factory_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/FactoryButton" to="." method="_on_factory_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/MosqueButton" to="." method="_on_mosque_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MosqueButton" to="." method="_on_mosque_button_pressed"]
