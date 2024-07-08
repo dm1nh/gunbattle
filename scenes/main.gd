@@ -13,10 +13,6 @@ func _ready():
 		player.connect("fire", _on_player_fire)
 		player.connect("throw_grenade", _on_player_throw_grenade)
 
-func _process(_delta):
-	if Input.is_action_just_pressed("space"):
-		get_tree().change_scene_to_file("res://scenes/map_selection.tscn")
-
 func _on_player_fire(pos: Vector2, dir: Vector2, stats: Weapon):
 	if stats.spread == 3:
 		_create_projecttile_scene(pos, dir.rotated(PI/24), stats.damage_per_projecttile, stats.projecttile)

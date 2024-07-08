@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://de6nli1r4s5fw"]
+[gd_scene load_steps=3 format=3 uid="uid://de6nli1r4s5fw"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_m6p4u"]
+[ext_resource type="FontFile" uid="uid://bh6ls3ib0ioar" path="res://fonts/Minecraft.ttf" id="2_hrw03"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -31,14 +32,20 @@ alignment = 1
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hrw03")
+theme_override_font_sizes/font_size = 12
 text = "PLAY"
 
 [node name="ControlsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hrw03")
+theme_override_font_sizes/font_size = 12
 text = "CONTROLS"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hrw03")
+theme_override_font_sizes/font_size = 12
 text = "QUIT"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
