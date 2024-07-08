@@ -86,9 +86,9 @@ func _player_move():
 		$Weapon.z_index = 0 if movement_direction < 0 else 1
 		$GrenadeMarker2D.position = direction * initialGrenadeMarkerPosition 
 
-		if global_position.x > viewport_size.x:
+		if global_position.x >= viewport_size.x:
 			global_position.x = global_position.x - viewport_size.x
-		if global_position.x <= 1:
+		if global_position.x <= 0:
 			global_position.x = viewport_size.x - global_position.x
 	else:
 		state = PlayerState.Idle if state != PlayerState.Dead else PlayerState.Dead
