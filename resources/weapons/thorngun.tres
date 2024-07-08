@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://cr4jwrjqkt2b2"]
+
+[ext_resource type="AudioStream" uid="uid://cegt53e73imqq" path="res://audios/weapons/thorngun_reload.wav" id="1_80eqy"]
+[ext_resource type="Script" path="res://scenes/weapon.gd" id="1_kbm3x"]
+[ext_resource type="Texture2D" uid="uid://cc4x04sllo1ln" path="res://graphics/weapons/thorngun.png" id="2_gbiq7"]
+[ext_resource type="AudioStream" uid="uid://dxmgmeorwn51m" path="res://audios/weapons/thorngun.wav" id="3_v14xq"]
+
+[resource]
+script = ExtResource("1_kbm3x")
+name = "thorngun"
+texture = ExtResource("2_gbiq7")
+is_primary = true
+projecttile = 4
+damage_per_projecttile = 30
+firerate = 60
+capacity = 3
+reserve_ammo_limit = 15
+in_mag = 3
+reload_time = 3.0
+spread = 1
+shot_sound_effect = ExtResource("3_v14xq")
+reload_sound_effect = ExtResource("1_80eqy")

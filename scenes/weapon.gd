@@ -1,7 +1,7 @@
 extends Resource
 class_name Weapon
 
-enum ProjecttileType { BULLET, ARROW, ROCKET, LASER }
+enum ProjecttileType { BULLET, ARROW, ROCKET, LASER, THORN, MINI_GRENADE }
 
 @export var name: String
 @export var texture: Texture2D

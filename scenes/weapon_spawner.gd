@@ -22,14 +22,16 @@ func _on_spawn_cooldown_timer_timeout():
 
 func random_weapon_name_by_percentage() -> String:
 	var rand = randi_range(1, 100)
-	if rand > 20 and rand <= 40:
+	if rand > 10 and rand <= 30:
 		return "ak" 
-	if rand > 40 and rand <= 60:
+	if rand > 30 and rand <= 45:
 		return "shotgun" 
-	if rand > 60 and rand <= 75:
+	if rand > 45 and rand <= 60:
 		return "crossbow"
-	if rand > 75 and rand <= 90:
+	if rand > 60 and rand <= 75:
 		return "lasergun"
+	if rand > 75 and rand <= 90:
+		return "thorngun"
 	if rand > 90 and rand <= 100:
 		return "rocket_launcher"
 	return "handgun"
