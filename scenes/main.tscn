@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://qx3a7qa8cj4s"]
+[gd_scene load_steps=8 format=3 uid="uid://qx3a7qa8cj4s"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_j76av"]
 [ext_resource type="PackedScene" uid="uid://d3a0s1jathl8" path="res://scenes/players/player_blue.tscn" id="1_wt3nq"]
 [ext_resource type="Texture2D" uid="uid://8dqqibrwa1o8" path="res://graphics/backgrounds/forest.png" id="2_noe53"]
+[ext_resource type="Script" path="res://scenes/maps/item_spawner.gd" id="4_yaklo"]
 [ext_resource type="Script" path="res://scenes/weapon_spawner.gd" id="6_f30gt"]
 [ext_resource type="PackedScene" uid="uid://b0avhbrnehd15" path="res://scenes/players/player_red.tscn" id="6_kmjfw"]
 [ext_resource type="PackedScene" uid="uid://cj1a83nppu01t" path="res://scenes/interfaces.tscn" id="8_l62rt"]
@@ -31,7 +32,7 @@ autostart = true
 [node name="Boxes" type="Node2D" parent="WeaponSpawner"]
 
 [node name="ItemSpawner" type="Node2D" parent="." groups=["weapon_spawner"]]
-script = ExtResource("6_f30gt")
+script = ExtResource("4_yaklo")
 
 [node name="SpawnCooldownTimer" type="Timer" parent="ItemSpawner"]
 wait_time = 8.0
